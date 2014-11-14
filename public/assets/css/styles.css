@@ -1,0 +1,35 @@
+body {
+  background-color: #F7F7F7;
+}
+#searchbar {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+#sidebar {
+  border: solid 1px #F7F7F7;
+  box-shadow: 0px 0px 5px #777777;
+  background-color: white;
+}
+#sidebar h3 {
+  font-size: medium;
+  text-align: center;
+}
+#sidebar li {
+  /*border: solid 1px orange;*/
+}
+#content {
+  /*max-width: 600px;*/
+  /*    margin-left: 10%;
+        margin-right: 10%;*/
+  background-color: white;
+  padding: 25px, 25px, 25px, 25px;
+  box-shadow: -1px -1px 5px #777777;
+  padding-bottom: 300px;
+  margin-bottom: 25px;
+}
+footer {
+  position: relative;
+  height: 150px;
+  clear: both;
+  padding-top: 20px;
+}
