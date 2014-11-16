@@ -1,9 +1,8 @@
 @extends('templates.main')
 
-@section('language_item')
-{{$languages["C"]}}
+@section('title')
+Login
 @stop
-
 
 @section('content')
 <h2>Se connecter</h2>

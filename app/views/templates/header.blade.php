@@ -1,7 +1,7 @@
 <header class="col-md-12">
     <div class="col-md-8" id="header-title">
         <h1>Snippet manager</h1>
-        <h2>Gérer vos bouts d'code !</h2>
+        <h2>Gérez vos bouts d'code !</h2>
     </div>
     <div class="col-md-4" id="user-panel">
         <form class="form-horizontal" role="form">
@@ -38,7 +38,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <a href="#">S'inscrire</a>
-                    <a href="#">Mot de passe oublié</a>
+                    {{HTML::link("passwordlost", "Mot de passe oublié")}}
                 </div>
             </div>
         </form>
