@@ -7,16 +7,16 @@
         <form class="form-horizontal" role="form">
 
             <div class="form-group">
-                <label for="inputPseudo" class="col-md-2 control-label">Pseudo</label>
+                <label for="inputPseudoHeader" class="col-md-2 control-label">Pseudo</label>
                 <div class="col-md-10">
-                    <input type="email" class="form-control" id="inputPseudo" placeholder="Pseudo">
+                    <input type="email" class="form-control" id="inputPseudoHeader" placeholder="Pseudo" required="required">
                 </div>
 
             </div>
             <div class="form-group">
-                <label for="inputPassword" class="col-md-2 control-label">Mot de passe</label>
+                <label for="inputPasswordHeader" class="col-md-2 control-label">Mot de passe</label>
                 <div class="col-md-10">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Mot de passe">
+                    <input type="password" class="form-control" id="inputPasswordHeader" placeholder="Mot de passe" required="required">
                 </div>
             </div>
 
