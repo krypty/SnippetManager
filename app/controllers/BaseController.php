@@ -15,4 +15,17 @@ class BaseController extends Controller {
 		}
 	}
 
+        public function getListLangage()
+        {
+            $tabLangage = Langage::all();
+        
+            $langages = array();
+            foreach ($tabLangage as $langage)
+            {
+                 $nb = count(Snippet::where('langage_id','=',$langage->id));
+
+                 $langages[$langage->name] = $nb;
+            }
+            return $langages;
+        }
 }

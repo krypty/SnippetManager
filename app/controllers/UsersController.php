@@ -10,8 +10,16 @@
  *
  * @author Kevin
  */
-class UsersController {
-    //put your code here
+class UsersController 
+{
+    
+    public function getList()
+    {
+        
+        
+    }
+    
+    
 }
 
 ?>

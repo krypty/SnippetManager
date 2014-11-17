@@ -1,4 +1,4 @@
-<?php namespace Lib\Langage;
+<?php 
 
 /*
  * To change this template, choose Tools | Templates
@@ -10,7 +10,7 @@
  *
  * @author Kevin
  */
-class LangagesController extends \Lib\Commun\BaseRessourceController
+class LangageController extends BaseController
 {
     
     public function __construct(LangageGestion $gestion) 
@@ -20,6 +20,20 @@ class LangagesController extends \Lib\Commun\BaseRessourceController
         $this->base = class_basename(__NAMESPACE__);
         $this->message_store = "Le langages a été ajouté";
         $this->message_update = "Le langages a été modifié";
+    }
+    
+    public static function getIdName()
+    {
+        $languagesSelect = array();
+        
+        $tabLangage = Langage::all();
+        
+        foreach ($tabLangage as $langage)
+        {
+             $languagesSelect[$langage->id] = $langage->name;
+        }
+        
+        return $languagesSelect;
     }
     
 }
