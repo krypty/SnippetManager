@@ -29,3 +29,5 @@ Route::get('editsnippet/{id}', "EditSnippetController@show")->where(array('id' =
 Route::get("profile","ProfileController@show");
 
 Route::get("createaccount","AccountController@show");
+
+Route::get('viewsnippet/{id}', "ViewSnippetController@show")->where(array('id' => '[0-9]+'));

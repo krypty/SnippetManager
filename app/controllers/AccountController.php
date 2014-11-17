@@ -19,7 +19,7 @@ class AccountController extends BaseController {
             "languages" => $languages
         );
 
-        return View::make('createaccount', $data);
+        return View::make('create_account', $data);
     }
 
 }

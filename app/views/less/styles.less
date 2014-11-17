@@ -27,7 +27,7 @@ body {
 .table-content{
     width: 90%;
     margin:auto;
-    
+
     tr:nth-child(even){
         background-color: @backgroundColor;
     }
@@ -38,4 +38,17 @@ footer {
     height: 150px;
     clear: both;
     padding-top: 20px;
+}
+
+/* à encapsuler pour codeMirror*/
+textarea{
+    width: 100%;
+}
+
+.snippet-details-labels{
+    font-weight: bold;
+
+    &:after{
+        content: ": "
+    }
 }
