@@ -6,8 +6,6 @@ App::missing(function() {
 
 Route::get('/', 'HomeController@showWelcome');
 
-Route::get('/article/{n}', 'ArticleController@showArticle')->where("n", "[0-9]+");
-
 Route::controller("users", "UsersController");
 
 //Route::resource("users", "UsersController");

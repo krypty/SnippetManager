@@ -1,5 +1,5 @@
 body {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 #searchbar {
   margin-top: 25px;
@@ -14,18 +14,19 @@ body {
   font-size: medium;
   text-align: center;
 }
-#sidebar li {
-  /*border: solid 1px orange;*/
-}
 #content {
-  /*max-width: 600px;*/
-  /*    margin-left: 10%;
-        margin-right: 10%;*/
   background-color: white;
   padding: 25px, 25px, 25px, 25px;
   box-shadow: -1px -1px 5px #777777;
   padding-bottom: 300px;
   margin-bottom: 25px;
+}
+.table-content {
+  width: 90%;
+  margin: auto;
+}
+.table-content tr:nth-child(even) {
+  background-color: #f7f7f7;
 }
 footer {
   position: relative;

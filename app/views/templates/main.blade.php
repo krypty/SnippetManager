@@ -6,6 +6,9 @@
         <link rel="stylesheet" href="https://bootflat.github.io/bootflat/css/bootflat.css">
         <link rel="stylesheet" href="{{URL::asset('assets/css/styles.css')}}">
 
+        <!-- source: http://www.kryogenix.org/code/browser/sorttable/ -->
+        <script src="{{URL::asset('assets/js/sorttable.js')}}"></script>
+
         <title>@yield('title') | Snippet manager</title>
     </head>
     <body>
