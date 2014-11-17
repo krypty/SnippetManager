@@ -35,7 +35,17 @@
     <div class="form-group">
         <label for="inputCode" class="col-md-2 control-label">Code</label>
         <div class="col-md-10">
-            <textarea class="form-control" rows="10" id="inputCode">{{$snippetData["code"] or ''}}</textarea>
+            <!--<textarea class="form-control" rows="10" id="inputCode">{{$snippetData["code"] or ''}}</textarea>-->
+
+            <?php
+            $code = "";
+            $mode = "";
+            if (isset($snippetData)) {
+                $code = $snippetData["code"];
+                $mode = $snippetData["syntaxColorCode"];
+            }
+            ?>
+            @include('templates.codemirror-textarea', array("code" => $code, "mode" => $mode, "readonly" => false))
         </div>
     </div>
     <div class="form-group">

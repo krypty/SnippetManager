@@ -6,6 +6,16 @@
         <link rel="stylesheet" href="https://bootflat.github.io/bootflat/css/bootflat.css">
         <link rel="stylesheet" href="{{URL::asset('assets/css/styles.css')}}">
 
+        <!-- codeMirror script and stylesheets -->
+        <link rel="stylesheet" href="{{URL::asset('assets/codemirror/lib/codemirror.css')}}">
+        <link rel="stylesheet" href="{{URL::asset('assets/codemirror/theme/monokai.css')}}">
+        <link rel="stylesheet" href="{{URL::asset('assets/codemirror/addon/hint/show-hint.css')}}">
+
+        <script src="{{URL::asset('assets/codemirror/lib/codemirror.js')}}"></script>
+        <script src="{{URL::asset('assets/codemirror/addon/hint/show-hint.js')}}"></script>
+        <script src="{{URL::asset('assets/codemirror/addon/hint/anyword-hint.js')}}"></script>
+        <script src="{{URL::asset('assets/codemirror/addon/mode/loadmode.js')}}"></script>
+
         <!-- source: http://www.kryogenix.org/code/browser/sorttable/ -->
         <script src="{{URL::asset('assets/js/sorttable.js')}}"></script>
 
