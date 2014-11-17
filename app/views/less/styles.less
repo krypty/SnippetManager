@@ -1,0 +1,41 @@
+@backgroundColor: #F7F7F7;
+
+body {
+    background-color: @backgroundColor;
+}
+#searchbar {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#sidebar {
+    border: solid 1px #F7F7F7;
+    box-shadow: 0px 0px 5px #777777;
+    background-color: white;
+    h3 {
+        font-size: medium;
+        text-align: center;
+    }
+}
+#content {
+    background-color: white;
+    padding: 25px, 25px, 25px, 25px;
+    box-shadow: -1px -1px 5px #777777;
+    padding-bottom: 300px;
+    margin-bottom: 25px;
+}
+
+.table-content{
+    width: 90%;
+    margin:auto;
+    
+    tr:nth-child(even){
+        background-color: @backgroundColor;
+    }
+}
+
+footer {
+    position: relative;
+    height: 150px;
+    clear: both;
+    padding-top: 20px;
+}
