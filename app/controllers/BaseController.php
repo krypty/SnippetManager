@@ -22,9 +22,12 @@ class BaseController extends Controller {
             $langages = array();
             foreach ($tabLangage as $langage)
             {
-                 $nb = count(Snippet::where('langage_id','=',$langage->id));
-
-                 $langages[$langage->name] = $nb;
+                 $nb = Snippet::where('langage_id','=',$langage->id)->count();
+                 
+                 if($nb>0)
+                 {
+                    $langages[$langage->name] = $nb;
+                 }
             }
             return $langages;
         }
