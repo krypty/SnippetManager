@@ -15,8 +15,8 @@
             </fieldset>
         </div>
         <div class="col-md-12">
-            <a href="{{URL::action('SnippetController@LikeSnippet', "666")}}"><button type="submit" class="btn btn-default">J'aime</button></a>
-            <a href="{{URL::to('#')}}"><button type="submit" class="btn btn-default">Modifier</button></a>
+            <a href="{{URL::action('SnippetController@likeSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">J'aime</button></a>
+            <a href="{{URL::action('SnippetController@editSnippetShow', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Modifier</button></a>
         </div>
     </div>
     <div class="col-md-4">

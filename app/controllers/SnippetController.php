@@ -8,41 +8,38 @@ class SnippetController extends BaseController {
      * @return type array with snippet info
      */
     public static function getInfo($id) {
-        $objet = Snippet::find($id);
+        
+        $dateFormat = "d/m/Y H:i:s";
+        
+        $snippet = Snippet::find($id);
 
-        $lang = Langage::find($objet->langage_id);
+        $lang = Langage::find($snippet->langage_id);
+        $author = User::find($snippet->auteur_id);
 
-        $tab = array(
-            "title" => $objet->name,
-            "language" => "$lang->name",
-            "public" => 1,
-            "code" => $objet->code
+        $snippetInfo = array(
+            "id" => $snippet->id,
+            "title" => $snippet->name,
+            "author" => $author->pseudo,
+            "language" => $lang->name,
+            "public" => $snippet->public,
+            "visibility" => $snippet->public == "1" ? "public" : "privé",
+            "code" => $snippet->code,
+            "syntaxColorCode" => $lang->syntaxColorCode,
+            "createdAt" => date($dateFormat, strtotime($snippet->created_at)),
+            "updatedAt" => date($dateFormat, strtotime($snippet->updated_at))
         );
-        return $tab;
+        return $snippetInfo;
     }
 
     ///
     ///  View snippet
     ///
-    public function ViewSnippetShow($id) {
+    public function viewSnippetShow($id) {
         $languages = parent::getListLangage();
 
         $languagesSelect = LangageController::getIdName();
 
-        //TODO: retourner un langage sous forme de tableau associatif
-        //$languagesSelect["syntaxColorCode"] = "clike";
-        $syntaxColorCode = "clike";
-
-
         $snippetData = SnippetController::getInfo($id);
-
-        //TODO: intégrer ces champs à SnippetController::getInfo()
-        $snippetData["author"] = "toto";
-        $snippetData["createdAt"] = "11/12/2014 11:20";
-        $snippetData["updatedAt"] = "11/12/2014 11:25";
-        // visibility != public, visibiliy est soit "public" ou "privé" et public vaut respectiviement soit 1 ou 0. Le premier est utilisé pour l'affichage, le second pour le stockage dans la BDD
-        $snippetData["visibility"] = "public";
-        $snippetData["syntaxColorCode"] = $syntaxColorCode;
 
         $data = array(
             "languages" => $languages,
@@ -57,7 +54,7 @@ class SnippetController extends BaseController {
     /// Add snippet
     ///
 
-    public function AddSnippetShow() {
+    public function addSnippetShow() {
         $languages = parent::getListLangage();
 
         $languagesSelect = LangageController::getIdName();
@@ -70,7 +67,7 @@ class SnippetController extends BaseController {
         return View::make('add_edit_snippet', $data);
     }
 
-    public function AddSnippetPost() {
+    public function addSnippetPost() {
         //TODO: get all data from Input::get('XXX'). See: http://laravel.com/docs/4.2/requests#basic-input
         // ...
         // SAVE the snippet in the database
@@ -86,14 +83,12 @@ class SnippetController extends BaseController {
      * Show the form to edit the snippet
      * @param int $id
      */
-    public function EditSnippetShow($id) {
+    public function editSnippetShow($id) {
         $languages = parent::getListLangage();
 
         $languagesSelect = LangageController::getIdName();
 
         $snippetData = SnippetController::getInfo($id);
-        //TODO: integrate this in getInfo()
-        $snippetData["syntaxColorCode"] = "clike";
 
         $data = array(
             "languages" => $languages,
@@ -107,7 +102,7 @@ class SnippetController extends BaseController {
     /**
      * Update the snippet with the data from the form
      */
-    public function EditSnippetPost() {
+    public function editSnippetPost() {
         //TODO: get all data from Input::get('XXX'). See: http://laravel.com/docs/4.2/requests#basic-input
         // ...
         // UPDATE the snippet in the database
@@ -123,7 +118,7 @@ class SnippetController extends BaseController {
      * Remove the snippet from the database
      * @param int $id
      */
-    public function DeleteSnippet($id) {
+    public function deleteSnippet($id) {
         //TODO remove snippet from database
         // Maybe add a confirmation message and a success message + redirection ?
         echo "delete snippet $id"; // TODO: remove me
@@ -133,13 +128,13 @@ class SnippetController extends BaseController {
     /// Like snippet
     ///
 
-    public function LikeSnippet($id) {
+    public function likeSnippet($id) {
         //TODO get user id and add $id and user's id to Likes table
         // do not forget to check if the user has not already liked the snippet
         echo "liked snippet $id"; // TODO: remove me
     }
 
-    public function UnlikeSnippet($id) {
+    public function unlikeSnippet($id) {
         //TODO get user id and remove $id and user's id to Likes table
         echo "unliked snippet $id"; // TODO: remove me
     }
