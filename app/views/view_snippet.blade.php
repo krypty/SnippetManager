@@ -15,8 +15,7 @@
             </fieldset>
         </div>
         <div class="col-md-12">
-            <button type="submit" class="btn btn-default">Tout sélectionner</button>
-            <a href="{{URL::to('#')}}"><button type="submit" class="btn btn-default">J'aime</button></a>
+            <a href="{{URL::action('SnippetController@LikeSnippet', "666")}}"><button type="submit" class="btn btn-default">J'aime</button></a>
             <a href="{{URL::to('#')}}"><button type="submit" class="btn btn-default">Modifier</button></a>
         </div>
     </div>
