@@ -7,53 +7,60 @@
 @section('content')
 <h2>{{$title}}</h2>
 
-<form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label for="inputTitle" class="col-md-2 control-label">Titre</label>
-        <div class="col-md-10">
-            <input type="text" class="form-control" id="inputTitle" placeholder="Titre du snippet" {{isset($snippetData['title']) ? 'value="'.$snippetData["title"].'"': ''}}>
-        </div>
+@if(isset($snippetData))
+{{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'SnippetController@editSnippetPost'))}}
+@else
+{{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'SnippetController@addSnippetPost'))}}
+@endif
+<div class="form-group">
+    {{Form::label("inputTitle", "Titre", array("class" => "col-md-2 control-label"))}}
+    <div class="col-md-10">
+        <?php $title = isset($snippetData['title']) ? $snippetData["title"] : '' ?>
+        {{Form::text("inputTitle", $title, array("class" => "form-control", "placeholder" => "Titre du snippet" ))}}
     </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">Langage</label>
-        <div class="col-md-10">
-            <select name="inputLanguage" class="form-control">
-                @foreach ($languagesSelect as $key=>$value)
-                <option @if(isset($snippetData) && $snippetData['language']==$value) selected="selected" @endif value="{{$key}}">{{$value}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputPublic" class="col-md-2 control-label">Snippet public</label>
-        <div class="col-md-10">
-            <div class="checkbox">
-                <input type="checkbox" id="inputPublic" @if(isset($snippetData) && $snippetData['public'] == 1) checked="checked" @endif>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputCode" class="col-md-2 control-label">Code</label>
-        <div class="col-md-10">
-            <!--<textarea class="form-control" rows="10" id="inputCode">{{$snippetData["code"] or ''}}</textarea>-->
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">Langage</label>
+    <div class="col-md-10">
 
-            <?php
-            $code = "";
-            $mode = "";
-            if (isset($snippetData)) {
-                $code = $snippetData["code"];
-                $mode = $snippetData["syntaxColorCode"];
-            }
-            ?>
-            @include('templates.codemirror-textarea', array("code" => $code, "mode" => $mode, "readonly" => false))
+        <?php $defaultLanguage = isset($snippetData) ? array_search($snippetData['language'], $languagesSelect) : ""; ?>
+        {{Form::select("inputLanguage", $languagesSelect, $defaultLanguage, array("class" => "form-control"))}}
+    </div>
+</div>
+<div class="form-group">
+    <label for="inputPublic" class="col-md-2 control-label">Snippet public</label>
+    <div class="col-md-10">
+        <div class="checkbox">
+            <?php $isPublic = isset($snippetData) && $snippetData['public'] == 1 ?>
+            {{Form::checkbox("inputPublic", "", $isPublic)}}
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-smd-10">
-            <button type="submit" class="btn btn-danger">Annuler</button>
-            <a href="#"><button type="button" class="btn btn-success">Envoyer</button></a>
-        </div>
+</div>
+<div class="form-group">
+    <label for="inputCode" class="col-md-2 control-label">Code</label>
+    <div class="col-md-10">
+        <?php
+        $code = "";
+        $mode = "";
+        if (isset($snippetData)) {
+            $code = $snippetData["code"];
+            $mode = $snippetData["syntaxColorCode"];
+        }
+        ?>
+        @include('templates.codemirror-textarea', array("code" => $code, "mode" => $mode, "readonly" => false))
     </div>
-</form>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-smd-10">
+        {{HTML::link(URL::previous(), 'Annuler', array('class' => 'btn btn-danger'))}}
+        {{Form::submit("Envoyer", array("class" => "btn btn-success"))}}
+    </div>
+</div>
+
+@if(isset($snippetData))
+{{Form::hidden("snippet_id", $snippetData['id'])}}
+@endif
+
+{{Form::close()}}
 
 @stop

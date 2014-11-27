@@ -19,6 +19,8 @@ class AuthentificationController extends BaseController {
 
     function loginPost() {
         //TODO...
+        echo "login post<br/>";
+        print_r(Input::all());
     }
 
     ///
@@ -37,6 +39,8 @@ class AuthentificationController extends BaseController {
 
     public function passwordLostPost() {
         //TODO: get user input and send mail to user
+        echo "password lost post<br/>";
+        print_r(Input::all());
     }
 
     ///
@@ -54,6 +58,8 @@ class AuthentificationController extends BaseController {
 
     public function createAccountPost() {
         //TODO: get user input and create account in BD
+        echo "createAccountPost<br/>";
+        print_r(Input::all());
     }
 
 }

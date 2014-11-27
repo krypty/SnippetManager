@@ -38,6 +38,9 @@ Route::post("createaccount", "AuthentificationController@createAccountPost");
 Route::get("profile", "ProfileController@show");
 Route::get("mysnippets", "UsersController@showMySnippets");
 
+// SEARCH
+Route::get("search", "SearchController@showResults");
+
 
 /// ERRORS
 App::missing(function() {

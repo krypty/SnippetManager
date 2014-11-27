@@ -15,6 +15,7 @@
             </fieldset>
         </div>
         <div class="col-md-12">
+            <!-- TODO: ajouter un test si le snippet a deja été liké et changer le bouton en conséquence -->
             <a href="{{URL::action('SnippetController@likeSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">J'aime</button></a>
             <a href="{{URL::action('SnippetController@editSnippetShow', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Modifier</button></a>
         </div>
@@ -23,6 +24,8 @@
         <div class="col-md-12">
             <fieldset><legend>Détails</legend>
                 <p><span class="snippet-details-labels">Auteur</span>{{$snippetData["author"]}}</p>
+                <p><span class="snippet-details-labels">Titre</span>{{$snippetData["title"]}}</p>
+                <p><span class="snippet-details-labels">Langage</span>{{$snippetData["language"]}}</p>
                 <p><span class="snippet-details-labels">Créé le</span>{{$snippetData["createdAt"]}}</p>
                 <p><span class="snippet-details-labels">Modifié le</span>{{$snippetData["updatedAt"]}}</p>
                 <p><span class="snippet-details-labels">Visibilité</span>{{$snippetData["visibility"]}}</p>

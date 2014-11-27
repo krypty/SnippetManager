@@ -7,18 +7,18 @@ Mot de passe oublié
 @section('content')
 <h2>Mot de passe oublié</h2>
 
-<form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label for="inputEmail" class="col-md-2 control-label">Adresse mail</label>
-        <div class="col-md-10">
-            <input type="email" class="form-control" id="inputEmail" placeholder="exemple@domaine.com">
-        </div>
+{{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'AuthentificationController@passwordLostPost'))}}
+<div class="form-group">
+    {{Form::label("inputEmail", "Adresse mail", array("class" => "col-md-2 control-label"))}}
+    <div class="col-md-10">
+        {{Form::email("inputEmail", "", array("class" => "form-control", "placeholder" => "exemple@domaine.com", "required" => "required"))}}
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-smd-10">
-            <button type="submit" class="btn btn-success">Soumettre</button>
-        </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-smd-10">
+        {{Form::submit("Soumettre", array("class" => "btn btn-success"))}}
     </div>
-</form>
+</div>
+{{Form::close()}}
 
 @stop

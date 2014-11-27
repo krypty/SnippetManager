@@ -1,47 +1,44 @@
 <header class="col-md-12">
     <div class="col-md-8" id="header-title">
-        <h1>Snippet manager</h1>
-        <h2>Gérez vos bouts d'code !</h2>
+        <h1>{{HTML::link('/', "Snippet Manager - Gérez vos bouts d'code !")}}</h1>
     </div>
     <div class="col-md-4" id="user-panel">
-        <form class="form-horizontal" role="form">
+        {{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'AuthentificationController@loginPost'))}}
 
-            <div class="form-group">
-                <label for="inputPseudoHeader" class="col-md-2 control-label">Pseudo</label>
-                <div class="col-md-10">
-                    <input type="email" class="form-control" id="inputPseudoHeader" placeholder="Pseudo" required="required">
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label for="inputPasswordHeader" class="col-md-2 control-label">Mot de passe</label>
-                <div class="col-md-10">
-                    <input type="password" class="form-control" id="inputPasswordHeader" placeholder="Mot de passe" required="required">
-                </div>
+        <div class="form-group">
+            {{Form::label('inputPseudoHeader', 'Pseudo', array("class" => "col-md-2 control-label"))}}
+            <div class="col-md-10">
+                {{Form::text("inputPseudo", null, array("class" => "form-control", "placeholder" => "Pseudo","id" => "inputPseudoHeader", "required" => "required"))}}
             </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <div class="col-md-6 col-xs-6 text-left">
-                        <div class="checkbox">
-                            <label for="cbxRemember">
-                                <input type="checkbox" id="cbxRemember"> Se souvenir de moi
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xs-6 text-right">
-                        <button type="submit" class="btn btn-success">Se connecter</button>
+        </div>
+        <div class="form-group">
+            {{Form::label('inputPasswordHeader', 'Mot de passe', array("class" => "col-md-2 control-label"))}}
+            <div class="col-md-10">
+                {{Form::password("inputPassword", array("class" => "form-control", "placeholder" => "Mot de passe", "id" => "inputPasswordHeader", "required" => "required"))}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-6 col-xs-6 text-left">
+                    <div class="checkbox">
+                        {{Form::checkbox('cbxRemember', 1, null, array('id' => 'cbxRemember'))}} {{Form::label('cbxRemember', 'Se souvenir de moi', array('for' => 'cbxRemember'))}}
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <a href="#">S'inscrire</a>
-                    {{HTML::link("passwordlost", "Mot de passe oublié")}}
+                <div class="col-md-6 col-xs-6 text-right">
+                    {{Form::submit("Se connecter", array("class" => "btn btn-success"))}}
                 </div>
             </div>
-        </form>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                {{HTML::link("createaccount", "S'inscrire")}}
+                {{HTML::link("passwordlost", "Mot de passe oublié")}}
+            </div>
+        </div>
+        {{Form::close()}}
     </div>
 
 </header>

@@ -73,6 +73,9 @@ class SnippetController extends BaseController {
         // SAVE the snippet in the database
         // ...
         echo "add snippet post"; // TODO: remove me
+        echo "<pre>";
+        print_r(Input::all());
+        echo "</pre>";
     }
 
     ///

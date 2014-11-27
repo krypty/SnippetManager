@@ -11,8 +11,14 @@
         <tbody>
             @foreach ($snippetsData as $snippetData)
             <tr>
-                 @foreach($snippetData as $value)
-                 <td>{{$value}}</td>
+                
+                 @foreach($snippetData as $key => $value)
+                    @if($key == "name")
+                       <td><a href="{{URL::action('SnippetController@ViewSnippetShow', $snippetData['id'])}}">{{$value}}</a></td>
+                    @elseif($key == "id")
+                    @else
+                       <td>{{$value}}</td>
+                    @endif
                  @endforeach
             </tr>
             @endforeach
