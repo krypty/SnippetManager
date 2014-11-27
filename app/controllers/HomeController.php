@@ -2,28 +2,29 @@
 
 class HomeController extends BaseController {
 
-    public function showWelcome() {
-        $languages = parent::getListLangage();
+    public function showWelcome() 
+    {
+       $languages = parent::getListLangage();
 
-        // TODO: get this from database
-        // data used to populate table "Derniers snippets ajoutés"
-        $newestSnippetData = array(
-            array(
-                "Tri bulle en java",
-                "Java",
-                "17/11/2014"
-            ),
-            array(
-                "Tri bulle en C",
-                "C",
-                "18/10/2014"
-            ),
-            array(
-                "Division euclidienne en Python",
-                "Python",
-                "17/10/2014"
-            )
-        );
+       $tabSnippets = DB::table('snippets')->orderBy('created_at', 'desc')->get();
+        
+        
+        if(count($tabSnippets)>10)
+            $max = 10;
+        else
+            $max = count($tabSnippets);
+        
+        $newestSnippetData = array();
+        
+        for($i = 0;$i<$max;$i++)
+        {
+            $newestSnippetData[$i] = array(
+                "name"=>$tabSnippets[$i]->name,
+                "language"=>Langage::find($tabSnippets[$i]->langage_id)->name,
+                "date"=>$tabSnippets[$i]->created_at,
+                "id"=>$tabSnippets[$i]->id
+            );
+        }
 
         $newestSnippetTable = array(
             "tableTitle" => "Derniers snippets ajoutés",
@@ -31,27 +32,30 @@ class HomeController extends BaseController {
             "snippetsData" => $newestSnippetData
         );
 
-
-        // TODO: get this from database
-        // data used to populate table "Top des snippets ajoutés"
-        $topSnippetData = array(
-            array(
-                "Tri bulle en Perl",
-                "Perl",
-                "17/11/2014"
-            ),
-            array(
-                "Tri bulle en C#",
-                "C#",
-                "18/10/2014"
-            ),
-            array(
-                "Division euclidienne en JS",
-                "Javascript",
-                "17/10/2014"
-            )
-        );
-
+        
+        
+        $n = 10; // show limit
+        $data = DB::table('likes')->select('*', DB::raw('COUNT(*) as cpt'))->groupBy('id_snippets')->orderBy('cpt', 'DESC')->limit($n)->get();
+       // echo $data[0]->id_snippets;
+        
+        if(count($data)>10)
+            $max = 10;
+        else
+            $max = count($data);
+        
+        $topSnippetData = array();
+        
+        for($i = 0;$i<$max;$i++)
+        {
+            $snip = Snippet::find($data[$i]->id_snippets);
+            $topSnippetData[$i] = array(
+                "name"=>$snip->name,
+                "language"=>Langage::find($snip->langage_id)->name,
+                "date"=>$snip->updated_at,
+                "id"=>$snip->id
+            );
+        }
+     
         $topSnippetTable = array(
             "tableTitle" => "Top des snippets ajoutés",
             "cols" => array("Nom", "Langage", "Date de modification"),
