@@ -21,6 +21,7 @@ class SnippetController extends BaseController {
             "title" => $snippet->name,
             "author" => $author->pseudo,
             "language" => $lang->name,
+            "language_id" => $snippet->langage_id,
             "public" => $snippet->public,
             "visibility" => $snippet->public == "1" ? "public" : "privé",
             "code" => $snippet->code,
@@ -28,6 +29,18 @@ class SnippetController extends BaseController {
             "createdAt" => date($dateFormat, strtotime($snippet->created_at)),
             "updatedAt" => date($dateFormat, strtotime($snippet->updated_at))
         );
+        return $snippetInfo;
+    }
+
+    public static function getInfoWithFilter($id, $cols) {
+        $snippetInfo = SnippetController::getInfo($id);
+
+        foreach ($snippetInfo as $key => $value) {
+            if (!in_array($key, $cols)) {
+                unset($snippetInfo[$key]);
+            }
+        }
+
         return $snippetInfo;
     }
 
