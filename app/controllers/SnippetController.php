@@ -67,15 +67,24 @@ class SnippetController extends BaseController {
         return View::make('add_edit_snippet', $data);
     }
 
-    public function addSnippetPost() {
-        //TODO: get all data from Input::get('XXX'). See: http://laravel.com/docs/4.2/requests#basic-input
-        // ...
-        // SAVE the snippet in the database
-        // ...
-        echo "add snippet post"; // TODO: remove me
-        echo "<pre>";
-        print_r(Input::all());
-        echo "</pre>";
+    public function addSnippetPost() 
+    {
+        $tab = Input::all();
+        $snippet = new Snippet();
+        $snippet->name = $tab["inputTitle"];
+        $snippet->langage_id = $tab["inputLanguage"];
+        if(isset($tab["inputPublic"]))
+            $snippet->public = 1;
+        else
+            $snippet->public = 0;
+        
+        $snippet->code = $tab["snippetContent"];
+        $snippet->auteur_id = 1;//TODO changer par l'auteur Connectée
+        
+        $snippet->save();
+        
+        $id = $snippet->id;
+        return Redirect::to('viewsnippet/'.$id);
     }
 
     ///
@@ -110,6 +119,8 @@ class SnippetController extends BaseController {
         // ...
         // UPDATE the snippet in the database
         // ...
+        ///Je doit pouvoir recupere L'ID
+        print_r(Input::all());
         echo "edit snippet post"; // TODO: remove me
     }
 
@@ -121,10 +132,18 @@ class SnippetController extends BaseController {
      * Remove the snippet from the database
      * @param int $id
      */
-    public function deleteSnippet($id) {
-        //TODO remove snippet from database
-        // Maybe add a confirmation message and a success message + redirection ?
-        echo "delete snippet $id"; // TODO: remove me
+    public function deleteSnippet($id) 
+    {
+        $snip = Snippet::find($id);
+        $snip->delete();
+        
+        $tab = Likes::where("id_snippets","=",$id)->get();
+        foreach ($tab as $likes) 
+        {
+            $likes->delete();
+        }
+        
+        return Redirect::to('/');
     }
 
     ///
@@ -132,9 +151,19 @@ class SnippetController extends BaseController {
     ///
 
     public function likeSnippet($id) {
-        //TODO get user id and add $id and user's id to Likes table
-        // do not forget to check if the user has not already liked the snippet
-        echo "liked snippet $id"; // TODO: remove me
+       
+        $like = new Likes();
+        $idUser = 1;
+        $tab = Likes::where("id_snippets","=",$id,"and","id_user","=",$idUser)->get();
+        
+        if(count($tab)<1)
+        {
+            $like->id_user = $idUser; //TODO Utilisateur Courant
+            $like->id_snippets = $id;
+            $like->save();
+        }
+        
+        return Redirect::to('viewsnippet/'.$id);
     }
 
     public function unlikeSnippet($id) {

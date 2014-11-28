@@ -18,6 +18,7 @@
             <!-- TODO: ajouter un test si le snippet a deja été liké et changer le bouton en conséquence -->
             <a href="{{URL::action('SnippetController@likeSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">J'aime</button></a>
             <a href="{{URL::action('SnippetController@editSnippetShow', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Modifier</button></a>
+            <a href="{{URL::action('SnippetController@deleteSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Supprimer</button></a>
         </div>
     </div>
     <div class="col-md-4">

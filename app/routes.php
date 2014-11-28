@@ -13,7 +13,7 @@ Route::post('addsnippet', "SnippetController@addSnippetPost");
 Route::get('editsnippet/{id}', "SnippetController@editSnippetShow")->where(array('id' => '[0-9]+'));
 Route::post('editsnippet', "SnippetController@editSnippetPost");
 
-Route::get('deletesnippet/{id}', "SnippetController@deleteSnippetShow")->where(array('id' => '[0-9]+'));
+Route::get('deletesnippet/{id}', "SnippetController@deleteSnippet")->where(array('id' => '[0-9]+'));
 
 Route::get("likesnippet/{id}", "SnippetController@likeSnippet")->where(array('id' => '[0-9]+'));
 
