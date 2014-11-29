@@ -19,6 +19,8 @@ Route::get("likesnippet/{id}", "SnippetController@likeSnippet")->where(array('id
 
 Route::get("unlikesnippet/{id}", "SnippetController@unlikeSnippet")->where(array('id' => '[0-9]+'));
 
+Route::get("snippetsbylanguage", "SnippetController@listSnippetByLanguage");
+
 
 /// AUTHENTIFICATION
 Route::get("login", 'AuthentificationController@loginShow');
