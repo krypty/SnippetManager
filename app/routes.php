@@ -39,6 +39,7 @@ Route::post("createaccount", "AuthentificationController@createAccountPost");
 //Route::controller("users", "UsersController");
 Route::get("profile", "ProfileController@show");
 Route::get("mysnippets", "UsersController@showMySnippets");
+Route::get("likedsnippets", "UsersController@showLikedSnippets");
 
 // SEARCH
 Route::get("search", "SearchController@showResults");
