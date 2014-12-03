@@ -87,7 +87,26 @@ Route::filter('author', function($route) {
 
     $userID = 1; // TODO: get id user logged
 
-    if ($snippet->auteur_id != $userID) {
+    if (!isset($snippet) || $snippet->auteur_id != $userID) {
+        $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
+        $languages = BaseController::getListLangage();
+
+        $data = array(
+            "languages" => $languages,
+            "errorMessage" => $errorMessage
+        );
+        return View::make('errors.unauthorized_action', $data);
+    }
+});
+
+Route::filter('public', function($route) {
+    $id = $route->getParameter('id');
+
+    $snippet = Snippet::find($id);
+
+    $userID = 1; // TODO: get id user logged
+
+    if (!isset($snippet) || $snippet->public != 1) {
         $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
         $languages = BaseController::getListLangage();
 
