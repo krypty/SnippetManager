@@ -18,6 +18,7 @@ class SnippetController extends BaseController {
 
         $snippetInfo = array(
             "id" => $snippet->id,
+            "numberOfLikes" => Likes::select()->where('id_snippets', '=', $id)->count(),
             "title" => $snippet->name,
             "author" => $author->pseudo,
             "language" => $lang->name,
@@ -193,13 +194,21 @@ class SnippetController extends BaseController {
     public function listSnippetByLanguage() {
         $languages = parent::getListLangage();
 
+        $userID = 1; //TODO: get ID from user logged
+        // to make the where clause work
+        if ($userID == null) {
+            $userID = -1;
+        }
+
         $language_id = Input::get("id");
 
-        $language = DB::table("langages")->find($language_id);
+        $language = Langage::find($language_id);
 
         $snippetByLanguageData = array();
 
-        $snippets_id = DB::table('snippets')->where("langage_id", $language_id)->lists('id');
+        $snippets_id = Snippet::where("langage_id", $language_id)->where(function($query) use (&$userID) {
+                    $query->where('public', '=', 1)->orWhere('auteur_id', '=', $userID);
+                })->lists('id');
 
         $columnsNeeded = array("id", "title", "author", "updatedAt", "createdAt");
         foreach ($snippets_id as $snippet_id) {

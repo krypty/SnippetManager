@@ -49,3 +49,12 @@ Route::get("search", "SearchController@showResults");
 App::missing(function() {
     return Response::view("errors.404", array(), 404);
 });
+
+
+// DEBUG
+// affiche les requêtes générées
+//Event::listen('illuminate.query', function($query) {
+//    echo "<pre>";
+//    var_dump($query);
+//    echo "</pre>";
+//});
