@@ -13,7 +13,7 @@
             <tr>
                 
                  @foreach($snippetData as $key => $value)
-                    @if($key == "name")
+                    @if($key == "title")
                        <td><a href="{{URL::action('SnippetController@ViewSnippetShow', $snippetData['id'])}}">{{$value}}</a></td>
                     @elseif($key == "id")
                     @else

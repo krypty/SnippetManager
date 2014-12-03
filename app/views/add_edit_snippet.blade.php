@@ -24,7 +24,7 @@
     <div class="col-md-10">
 
         <?php $defaultLanguage = isset($snippetData) ? array_search($snippetData['language'], $languagesSelect) : ""; ?>
-        {{Form::select("inputLanguage", $languagesSelect, $defaultLanguage, array("class" => "form-control"))}}
+        {{Form::select("inputLanguage", $languagesSelect, $defaultLanguage, array("class" => "form-control", "id" => "selectLanguage","onchange" => "selectMode()"))}}
     </div>
 </div>
 <div class="form-group">
@@ -62,5 +62,26 @@
 @endif
 
 {{Form::close()}}
+
+<!-- Script pour changer dynamiquement le mode de CodeMirror en fonction du langage choisi -->
+<script>
+    var codeMirrorModes = {};
+
+    // création d'un tableau key=id, value=syntaxColorCode. Permet de savoir quelle coloration appliquer en fonction de l'ID.
+    @foreach (Langage::all() as $langage)
+        {{'codeMirrorModes["'.$langage->id.'"] = "'.$langage->syntaxColorCode.'"'}}
+    @endforeach
+
+    function selectMode() {        
+        var selectLangage = document.getElementById("selectLanguage");
+        var languageIDFromSelect = selectLangage.options[selectLangage.selectedIndex].value;
+        var mode = codeMirrorModes[languageIDFromSelect];
+        console.log("mode: " + mode);
+        // chargement du bon js pour le mode actuel
+        editor.setOption("mode", mode);
+        CodeMirror.modeURL = "{{URL::asset('assets/codemirror/mode/%N/%N.js')}}";
+        CodeMirror.autoLoadMode(editor, mode);
+    }
+</script>
 
 @stop

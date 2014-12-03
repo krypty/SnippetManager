@@ -2,33 +2,38 @@
 
 class BaseController extends Controller {
 
-	/**
-	 * Setup the layout used by the controller.
-	 *
-	 * @return void
-	 */
-	protected function setupLayout()
-	{
-		if ( ! is_null($this->layout))
-		{
-			$this->layout = View::make($this->layout);
-		}
-	}
-
-        public function getListLangage()
-        {
-            $tabLangage = Langage::all();
-        
-            $langages = array();
-            foreach ($tabLangage as $langage)
-            {
-                 $nb = Snippet::where('langage_id','=',$langage->id)->count();
-                 
-                 if($nb>0)
-                 {
-                    $langages[$langage->name] = $nb;
-                 }
-            }
-            return $langages;
+    /**
+     * Setup the layout used by the controller.
+     *
+     * @return void
+     */
+    protected function setupLayout() {
+        if (!is_null($this->layout)) {
+            $this->layout = View::make($this->layout);
         }
+    }
+
+    /**
+     * Return array used to populate the sidebar. Must be called by every 
+     * controller action that show a view
+     * @return array with languages data used for the sidebar
+     */
+    public static function getListLangage() {
+        $allLanguages = Langage::all();
+
+        $langagesData = array();
+        foreach ($allLanguages as $langage) {
+            $nb = Snippet::where('langage_id', '=', $langage->id)->count();
+
+            if ($nb > 0) {
+                $langageData["name"] = $langage->name;
+                $langageData["id"] = $langage->id;
+                $langageData["count"] = $nb;
+
+                array_push($langagesData, $langageData);
+            }
+        }
+        return $langagesData;
+    }
+
 }
