@@ -11,6 +11,7 @@ class SearchController extends BaseController {
         
         $searchResultSnippetData = array();
         $i = 0;
+        
         foreach ($tabSnippets as $snip) 
         {
              $searchResultSnippetData[$i] = array(
