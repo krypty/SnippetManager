@@ -106,7 +106,7 @@ Route::filter('public', function($route) {
 
     $userID = 1; // TODO: get id user logged
 
-    if (!isset($snippet) || $snippet->public != 1) {
+    if (!isset($snippet) || ($snippet->public != 1 && $snippet->auteur_id != $userID)) {
         $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
         $languages = BaseController::getListLangage();
 

@@ -127,13 +127,19 @@ class SnippetController extends BaseController {
      * Update the snippet with the data from the form
      */
     public function editSnippetPost() {
-        //TODO: get all data from Input::get('XXX'). See: http://laravel.com/docs/4.2/requests#basic-input
-        // ...
-        // UPDATE the snippet in the database
-        // ...
-        ///Je doit pouvoir recupere L'ID
-        print_r(Input::all());
-        echo "edit snippet post"; // TODO: remove me
+        $id = Input::get('snippet_id');
+
+        if (isset($id)) {
+            $snippet = Snippet::find($id);
+            $snippet->name = Input::get('inputTitle');
+            $snippet->code = Input::get('snippetContent');
+            $snippet->langage_id = Input::get('inputLanguage');
+            $snippet->public = Input::get('inputPublic') == "" ? 0 : 1;
+            $snippet->save();
+            return Redirect::to("viewsnippet/$id");
+        } else {
+            echo "Le snippet n'a pas été mis à jour";
+        }
     }
 
     ///
