@@ -18,7 +18,7 @@ class BaseController extends Controller {
      * controller action that show a view
      * @return array with languages data used for the sidebar
      */
-    public function getListLangage() {
+    public static function getListLangage() {
         $allLanguages = Langage::all();
 
         $langagesData = array();
