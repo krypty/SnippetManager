@@ -13,14 +13,35 @@ class AuthentificationController extends BaseController {
             'password' => "pass",
             "languages" => $languages
         );
-
+        
         return View::make('login', $data);
     }
 
     function loginPost() {
-        //TODO...
-        echo "login post<br/>";
-        print_r(Input::all());
+        
+        $tab = Input::all();
+        
+        $user = User::where("pseudo","=",$tab["inputPseudo"])->get();
+        $u = $user[0];
+        
+        if(Hash::check($tab["inputPassword"], $u->password))
+        {
+            Auth::login(User::find($u->id));
+        }
+        
+        if(Auth::check())
+        {
+            return Redirect::to('profile');
+        }
+        else
+        {
+            return Redirect::to('login');
+        }
+    }
+    
+    function logout(){
+        Auth::logout();
+        return Redirect::to('/');
     }
 
     ///
@@ -48,7 +69,7 @@ class AuthentificationController extends BaseController {
     ///
     public function createAccountShow() {
         $languages = parent::getListLangage();
-
+        
         $data = array(
             "languages" => $languages
         );
@@ -57,9 +78,39 @@ class AuthentificationController extends BaseController {
     }
 
     public function createAccountPost() {
-        //TODO: get user input and create account in BD
-        echo "createAccountPost<br/>";
-        print_r(Input::all());
+       
+        $tab = Input::all();
+        
+        
+        if($tab["inputPassword"] != $tab["inputPasswordConfirm"])
+        {
+            //TODO Password Différent
+            return Redirect::to('createaccount');
+        }
+        else
+        {
+            //TODO Password non Identique
+            return Redirect::to('createaccount');
+        }
+        
+        $t = User::where("pseudo","=",$tab["inputPseudo"])->get();
+       
+        if(count($t)==0)
+        {
+            $user = new User();
+            $user->pseudo = $tab["inputPseudo"];
+            $user->email = $tab["inputEmail"];
+            $user->password = Hash::make($tab["inputPassword"]);
+            $user->save();
+            
+            return Redirect::to('login');
+        }
+        else
+        {
+            //TODO User deja existant
+            return Redirect::to('createaccount');
+        }
+        
     }
 
 }
