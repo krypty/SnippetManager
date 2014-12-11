@@ -87,15 +87,11 @@ class AuthentificationController extends BaseController {
             //TODO Password Différent
             return Redirect::to('createaccount');
         }
-        else
-        {
-            //TODO Password non Identique
-            return Redirect::to('createaccount');
-        }
+       
         
         $t = User::where("pseudo","=",$tab["inputPseudo"])->get();
-       
-        if(count($t)==0)
+        $t2 = User::where("email","=",$tab["inputEmail"])->get();
+        if(count($t)==0&&count($t2)==0)
         {
             $user = new User();
             $user->pseudo = $tab["inputPseudo"];
