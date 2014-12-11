@@ -7,6 +7,6 @@
         <li>{{HTML::link("likedsnippets", "Les snippets que j'aime")}}</li>
 
         <!-- TODO: changer le lien pour se déconnecter -->
-        <li>{{HTML::link("/", "Se déconnecter")}}</li>
+        <li>{{HTML::link("logout", "Se déconnecter")}}</li>
     </ul>
 </div>

@@ -34,6 +34,8 @@ Route::post("passwordlost", "AuthentificationController@passwordLostPost");
 Route::get("createaccount", "AuthentificationController@createAccountShow");
 Route::post("createaccount", "AuthentificationController@createAccountPost");
 
+Route::get("logout", "AuthentificationController@logout");
+
 
 /// USER
 //Route::controller("users", "UsersController");
