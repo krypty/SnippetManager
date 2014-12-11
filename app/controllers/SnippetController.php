@@ -92,7 +92,7 @@ class SnippetController extends BaseController {
             $snippet->public = 0;
 
         $snippet->code = $tab["snippetContent"];
-        $snippet->auteur_id = 1; //TODO changer par l'auteur Connectée
+        $snippet->auteur_id = Auth::user()->id;
 
         $snippet->save();
 
@@ -170,7 +170,7 @@ class SnippetController extends BaseController {
     public function likeSnippet($id) {
 
         $like = new Likes();
-        $idUser = 1;
+        $idUser = Auth::user()->id;
         $tab = Likes::where("id_snippets", "=", $id, "and", "id_user", "=", $idUser)->get();
 
         if (count($tab) < 1) {
