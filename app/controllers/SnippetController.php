@@ -170,15 +170,19 @@ class SnippetController extends BaseController {
     public function likeSnippet($id) {
 
         $like = new Likes();
-        $idUser = Auth::user()->id;
-        $tab = Likes::where("id_snippets", "=", $id, "and", "id_user", "=", $idUser)->get();
+        
+        if(Auth::check())
+        {
+           $idUser = Auth::user()->id;
+        
+            $tab = Likes::where("id_snippets", "=", $id, "and", "id_user", "=", $idUser)->get();
 
-        if (count($tab) < 1) {
-            $like->id_user = $idUser; //TODO Utilisateur Courant
-            $like->id_snippets = $id;
-            $like->save();
+            if (count($tab) < 1) {
+                $like->id_user = $idUser; 
+                $like->id_snippets = $id;
+                $like->save();
+            }
         }
-
         return Redirect::to('viewsnippet/' . $id);
     }
 
