@@ -85,7 +85,10 @@ Route::filter('author', function($route) {
 
     $snippet = Snippet::find($id);
 
-    $userID = Auth::user()->id; 
+    if(Auth::check())
+        $userID = Auth::user()->id; 
+    else
+        $userID = -1;
 
     if (!isset($snippet) || $snippet->auteur_id != $userID) {
         $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
@@ -104,7 +107,10 @@ Route::filter('public', function($route) {
 
     $snippet = Snippet::find($id);
 
-    $userID = Auth::user()->id; 
+    if(Auth::check())
+        $userID = Auth::user()->id; 
+    else
+        $userID = -1;
 
     if (!isset($snippet) || ($snippet->public != 1 && $snippet->auteur_id != $userID)) {
         $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
