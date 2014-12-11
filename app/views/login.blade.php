@@ -7,19 +7,20 @@ Login
 @section('content')
 <h2>Se connecter</h2>
 
-<form class="form-horizontal" role="form">
+{{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'AuthentificationController@loginPost'))}}
+
     <div class="form-group">
-        <label for="inputPseudo2" class="col-md-2 control-label">Pseudo</label>
+        {{Form::label("inputPseudo", "Pseudo", array("class" => "col-md-2 control-label"))}}
         <div class="col-md-10">
-            <input type="email" class="form-control" id="inputPseudo2" placeholder="Pseudo">
+            {{Form::text("inputPseudo", null, array("class" => "form-control", "required" => "required"))}}
         </div>
     </div>
     <div class="form-group">
-        <label for="inputPassword2" class="col-md-2 control-label">Mot de passe</label>
+        {{Form::label("inputPassword", "Mot de passe", array("class" => "col-md-2 control-label"))}}
         <div class="col-md-10">
-            <input type="password" class="form-control" id="inputPassword2" placeholder="Mot de passe">
+            {{Form::password("inputPassword", array("class" => "form-control", "required" => "required"))}}
         </div>
-    </div>
+    </div> 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <div class="checkbox">
@@ -35,7 +36,7 @@ Login
         </div>
     </div>
 </form>
-
+{{Form::close()}}
 <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet neque purus, ut fermentum enim euismod nec. Sed volutpat augue id lectus volutpat condimentum. Nulla vel libero libero. Duis at accumsan turpis, id ullamcorper nunc. Etiam dictum felis eu purus vulputate, ut hendrerit est aliquam. Suspendisse aliquet sed lectus venenatis porttitor. Mauris convallis mauris ultricies, aliquam urna sit amet, aliquet lectus. Sed blandit ac quam vitae condimentum.
 
     Phasellus pellentesque luctus diam et accumsan. Aliquam convallis mi massa, ut condimentum dui viverra scelerisque. Phasellus vitae sapien id justo porta mollis. Mauris vulputate fermentum consequat. Cras vitae maximus dui, efficitur eleifend tellus. Cras a suscipit leo. Aenean eu finibus mauris, a feugiat diam. Integer laoreet euismod velit et semper.
