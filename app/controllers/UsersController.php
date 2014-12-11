@@ -10,7 +10,7 @@ class UsersController extends BaseController {
     public function showMySnippets() {
         $languages = parent::getListLangage();
 
-        $userID = 1; //TODO: replace this with the id of the current logged user
+        $userID = Auth::user()->id; 
         $snippetsId = DB::table("snippets")->where('auteur_id', "=", $userID)->lists('id');
 
         $mySnippetData = array();
@@ -37,7 +37,7 @@ class UsersController extends BaseController {
     public function showLikedSnippets() {
         $languages = parent::getListLangage();
 
-        $userID = 1; //TODO: replace this with the id of the current logged user
+        $userID = Auth::user()->id; 
         $snippetsId = DB::table("likes")->where('id_user', "=", $userID)->lists('id_snippets');
 
         $mySnippetData = array();
