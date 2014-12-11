@@ -2,15 +2,96 @@
 
 class LangageTableSeeder extends Seeder {
 
-	public function run()
-	{
-		//DB::table('Langages')->delete();
+    public function run() {
+        Langage::create(array("name" => "APL", "syntaxColorCode" => "apl"));
+        Langage::create(array("name" => "ASP.NET", "syntaxColorCode" => "htmlembedded"));
+        Langage::create(array("name" => "Asterisk", "syntaxColorCode" => "asterisk"));
+        Langage::create(array("name" => "C", "syntaxColorCode" => "clike"));
+        Langage::create(array("name" => "C#", "syntaxColorCode" => "clike"));
+        Langage::create(array("name" => "C++", "syntaxColorCode" => "clike"));
+        Langage::create(array("name" => "Clojure", "syntaxColorCode" => "clojure"));
+        Langage::create(array("name" => "Cobol", "syntaxColorCode" => "cobol"));
+        Langage::create(array("name" => "CoffeeScript", "syntaxColorCode" => "coffeescript"));
+        Langage::create(array("name" => "Common Lisp", "syntaxColorCode" => "commonlisp"));
+        Langage::create(array("name" => "CSS", "syntaxColorCode" => "css"));
+        Langage::create(array("name" => "Cython", "syntaxColorCode" => "python"));
+        Langage::create(array("name" => "D", "syntaxColorCode" => "d"));
+        Langage::create(array("name" => "diff", "syntaxColorCode" => "diff"));
+        Langage::create(array("name" => "DTD", "syntaxColorCode" => "dtd"));
+        Langage::create(array("name" => "ECL", "syntaxColorCode" => "ecl"));
+        Langage::create(array("name" => "Eiffel", "syntaxColorCode" => "eiffel"));
+        Langage::create(array("name" => "Embedded Javascript", "syntaxColorCode" => "htmlembedded"));
+        Langage::create(array("name" => "Erlang", "syntaxColorCode" => "erlang"));
+        Langage::create(array("name" => "F#", "syntaxColorCode" => "mllike"));
+        Langage::create(array("name" => "Fortran", "syntaxColorCode" => "fortran"));
+        Langage::create(array("name" => "Gas", "syntaxColorCode" => "gas"));
+        Langage::create(array("name" => "Gherkin", "syntaxColorCode" => "gherkin"));
+        Langage::create(array("name" => "GitHub Flavored Markdown", "syntaxColorCode" => "gfm"));
+        Langage::create(array("name" => "Go", "syntaxColorCode" => "go"));
+        Langage::create(array("name" => "Groovy", "syntaxColorCode" => "groovy"));
+        Langage::create(array("name" => "HAML", "syntaxColorCode" => "haml"));
+        Langage::create(array("name" => "Haskell", "syntaxColorCode" => "haskell"));
+        Langage::create(array("name" => "Haxe", "syntaxColorCode" => "haxe"));
+        Langage::create(array("name" => "HTML", "syntaxColorCode" => "htmlmixed"));
+        Langage::create(array("name" => "HTTP", "syntaxColorCode" => "http"));
+        Langage::create(array("name" => "Jade", "syntaxColorCode" => "jade"));
+        Langage::create(array("name" => "Java", "syntaxColorCode" => "clike"));
+        Langage::create(array("name" => "JavaScript", "syntaxColorCode" => "javascript"));
+        Langage::create(array("name" => "JavaServer Pages", "syntaxColorCode" => "htmlembedded"));
+        Langage::create(array("name" => "Jinja2", "syntaxColorCode" => "jinja2"));
+        Langage::create(array("name" => "JSON", "syntaxColorCode" => "javascript"));
+        Langage::create(array("name" => "Julia", "syntaxColorCode" => "julia"));
+        Langage::create(array("name" => "LaTeX", "syntaxColorCode" => "stex"));
+        Langage::create(array("name" => "LESS", "syntaxColorCode" => "css"));
+        Langage::create(array("name" => "LiveScript", "syntaxColorCode" => "livescript"));
+        Langage::create(array("name" => "Lua", "syntaxColorCode" => "lua"));
+        Langage::create(array("name" => "MariaDB", "syntaxColorCode" => "sql"));
+        Langage::create(array("name" => "Markdown", "syntaxColorCode" => "markdown"));
+        Langage::create(array("name" => "mIRC", "syntaxColorCode" => "mirc"));
+        Langage::create(array("name" => "Nginx", "syntaxColorCode" => "nginx"));
+        Langage::create(array("name" => "NTriples", "syntaxColorCode" => "ntriples"));
+        Langage::create(array("name" => "OCaml", "syntaxColorCode" => "mllike"));
+        Langage::create(array("name" => "Octave", "syntaxColorCode" => "octave"));
+        Langage::create(array("name" => "Pascal", "syntaxColorCode" => "pascal"));
+        Langage::create(array("name" => "PEG.js", "syntaxColorCode" => "pegjs"));
+        Langage::create(array("name" => "Perl", "syntaxColorCode" => "perl"));
+        Langage::create(array("name" => "PHP", "syntaxColorCode" => "php"));
+        Langage::create(array("name" => "Pig", "syntaxColorCode" => "pig"));
+        Langage::create(array("name" => "Plain Text", "syntaxColorCode" => "null"));
+        Langage::create(array("name" => "Properties files", "syntaxColorCode" => "properties"));
+        Langage::create(array("name" => "Puppet", "syntaxColorCode" => "puppet"));
+        Langage::create(array("name" => "Python", "syntaxColorCode" => "python"));
+        Langage::create(array("name" => "R", "syntaxColorCode" => "r"));
+        Langage::create(array("name" => "reStructuredText", "syntaxColorCode" => "rst"));
+        Langage::create(array("name" => "Ruby", "syntaxColorCode" => "ruby"));
+        Langage::create(array("name" => "Rust", "syntaxColorCode" => "rust"));
+        Langage::create(array("name" => "Sass", "syntaxColorCode" => "sass"));
+        Langage::create(array("name" => "Scala", "syntaxColorCode" => "clike"));
+        Langage::create(array("name" => "Scheme", "syntaxColorCode" => "scheme"));
+        Langage::create(array("name" => "SCSS", "syntaxColorCode" => "css"));
+        Langage::create(array("name" => "Shell", "syntaxColorCode" => "shell"));
+        Langage::create(array("name" => "Sieve", "syntaxColorCode" => "sieve"));
+        Langage::create(array("name" => "Smalltalk", "syntaxColorCode" => "smalltalk"));
+        Langage::create(array("name" => "Smarty", "syntaxColorCode" => "smarty"));
+        Langage::create(array("name" => "SmartyMixed", "syntaxColorCode" => "smartymixed"));
+        Langage::create(array("name" => "Solr", "syntaxColorCode" => "solr"));
+        Langage::create(array("name" => "SPARQL", "syntaxColorCode" => "sparql"));
+        Langage::create(array("name" => "SQL", "syntaxColorCode" => "sql"));
+        Langage::create(array("name" => "sTeX", "syntaxColorCode" => "stex"));
+        Langage::create(array("name" => "Tcl", "syntaxColorCode" => "tcl"));
+        Langage::create(array("name" => "TiddlyWiki ", "syntaxColorCode" => "tiddlywiki"));
+        Langage::create(array("name" => "Tiki wiki", "syntaxColorCode" => "tiki"));
+        Langage::create(array("name" => "TOML", "syntaxColorCode" => "toml"));
+        Langage::create(array("name" => "Turtle", "syntaxColorCode" => "turtle"));
+        Langage::create(array("name" => "TypeScript", "syntaxColorCode" => "javascript"));
+        Langage::create(array("name" => "VB.NET", "syntaxColorCode" => "vb"));
+        Langage::create(array("name" => "VBScript", "syntaxColorCode" => "vbscript"));
+        Langage::create(array("name" => "Velocity", "syntaxColorCode" => "velocity"));
+        Langage::create(array("name" => "Verilog", "syntaxColorCode" => "verilog"));
+        Langage::create(array("name" => "XML", "syntaxColorCode" => "xml"));
+        Langage::create(array("name" => "XQuery", "syntaxColorCode" => "xquery"));
+        Langage::create(array("name" => "YAML", "syntaxColorCode" => "yaml"));
+        Langage::create(array("name" => "Z80", "syntaxColorCode" => "z80"));
+    }
 
-		// langage1
-		Langage::create(array(
-				'name' => Java,
-				'syntaxColorCode' => 42,
-				'snippet_id' => 1
-			));
-	}
 }

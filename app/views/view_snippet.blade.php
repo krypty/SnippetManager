@@ -15,8 +15,6 @@
             </fieldset>
         </div>
         <div class="col-md-12">
-            <!-- TODO: ajouter un test si le snippet a deja été liké et changer le bouton en conséquence -->
-
             @if(Auth::check())
             @if($isSnippetAlreadyLiked)
             <a href="{{URL::action('SnippetController@unlikeSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Je n'aime plus</button></a>
