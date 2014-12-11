@@ -16,9 +16,19 @@
         </div>
         <div class="col-md-12">
             <!-- TODO: ajouter un test si le snippet a deja été liké et changer le bouton en conséquence -->
+
+            @if(Auth::check())
+            @if($isSnippetAlreadyLiked)
+            <a href="{{URL::action('SnippetController@unlikeSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Je n'aime plus</button></a>
+            @else
             <a href="{{URL::action('SnippetController@likeSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">J'aime</button></a>
+            @endif
+            @if(Auth::check() && $snippetData["author_id"] == Auth::user()->id)
             <a href="{{URL::action('SnippetController@editSnippetShow', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Modifier</button></a>
             <a href="{{URL::action('SnippetController@deleteSnippet', $snippetData["id"])}}"><button type="submit" class="btn btn-default">Supprimer</button></a>
+            @endif
+            @endif
+
         </div>
     </div>
     <div class="col-md-4">

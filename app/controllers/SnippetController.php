@@ -21,6 +21,7 @@ class SnippetController extends BaseController {
             "numberOfLikes" => Likes::select()->where('id_snippets', '=', $id)->count(),
             "title" => $snippet->name,
             "author" => $author->pseudo,
+            "author_id" => $author->id,
             "language" => $lang->name,
             "language_id" => $snippet->langage_id,
             "public" => $snippet->public,
@@ -55,11 +56,14 @@ class SnippetController extends BaseController {
 
         $snippetData = SnippetController::getInfo($id);
 
+        $user_id = Auth::check() ? Auth::user()->id : -1;
+        $isSnippetAlreadyLiked = SnippetController::isSnippetLikedByUser($user_id, $id);
         $data = array(
             "languages" => $languages,
             "title" => "Détail du snippet" . $snippetData['title'],
             "languagesSelect" => $languagesSelect,
             "snippetData" => $snippetData,
+            "isSnippetAlreadyLiked" => $isSnippetAlreadyLiked
         );
         return View::make('view_snippet', $data);
     }
@@ -170,15 +174,12 @@ class SnippetController extends BaseController {
     public function likeSnippet($id) {
 
         $like = new Likes();
-        
-        if(Auth::check())
-        {
-           $idUser = Auth::user()->id;
-        
-            $tab = Likes::where("id_snippets", "=", $id, "and", "id_user", "=", $idUser)->get();
 
-            if (count($tab) < 1) {
-                $like->id_user = $idUser; 
+        if (Auth::check()) {
+            $idUser = Auth::user()->id;
+
+            if (!SnippetController::isSnippetLikedByUser($idUser, $id)) {
+                $like->id_user = $idUser;
                 $like->id_snippets = $id;
                 $like->save();
             }
@@ -233,6 +234,17 @@ class SnippetController extends BaseController {
         );
 
         return View::make('snippets_by_language', $data);
+    }
+
+    /**
+     * Teste si le snippet a déjà été liké par l'utilisateur
+     * @param type $user_id
+     * @param type $snippet_id
+     * @return true si l'user a déjà like le snippet, sinon false
+     */
+    public static function isSnippetLikedByUser($user_id, $snippet_id) {
+        $tab = Likes::where("id_snippets", "=", $snippet_id, "and", "id_user", "=", $user_id)->get();
+        return count($tab) > 0;
     }
 
 }
