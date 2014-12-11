@@ -3,7 +3,7 @@
 class Langage extends Eloquent 
 {
 
-	protected $table = 'Langages';
+	protected $table = 'langages';
 	public $timestamps = true;
 
 	public function getSnippets()

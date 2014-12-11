@@ -48,7 +48,7 @@ class HomeController extends BaseController {
     private function getMostLikedSnippet($n, $userID) {
         $topSnippetData = array();
 
-        $snippets_id = Likes::select('*', DB::raw('COUNT(*) as cpt'))->leftJoin('Snippets', 'Likes.id_snippets', '=', 'Snippets.id')->where('public', '=', 1)->orWhere('auteur_id', '=', $userID)->groupBy('id_snippets')->orderBy('cpt', 'DESC')->limit($n)->lists('id_snippets');
+        $snippets_id = Likes::select('*', DB::raw('COUNT(*) as cpt'))->leftJoin('snippets', 'likes.id_snippets', '=', 'snippets.id')->where('public', '=', 1)->orWhere('auteur_id', '=', $userID)->groupBy('id_snippets')->orderBy('cpt', 'DESC')->limit($n)->lists('id_snippets');
 
         $columnsNeeded = array("id", "numberOfLikes", "title", "language", "author", "updatedAt");
         foreach ($snippets_id as $snippet_id) {

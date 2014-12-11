@@ -24,17 +24,10 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-//$env = $app->detectEnvironment(array(
-//
-//	'local' => array('homestead'),
-//
-//));
-
-// permet de différencier deux environnements: local et prod
-// source: http://stackoverflow.com/questions/24108346/how-to-set-local-environment-in-laravel-4
 $env = $app->detectEnvironment(array(
-    'local' => gethostname(),
-    'production' => ['*.com', '*.net', '*.org', '*.ch']
+
+    'local' => array('homestead'),
+
 ));
 
 /*

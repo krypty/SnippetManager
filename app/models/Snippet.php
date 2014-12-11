@@ -2,7 +2,7 @@
 
 class Snippet extends Eloquent {
 
-	protected $table = 'Snippets';
+	protected $table = 'snippets';
 	public $timestamps = true;
 
 	public function getAuteur()

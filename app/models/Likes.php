@@ -2,7 +2,7 @@
 
 class Likes extends Eloquent {
 
-	protected $table = 'Likes';
+	protected $table = 'likes';
 	public $timestamps = true;
 
 }
