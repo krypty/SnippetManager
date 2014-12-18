@@ -7,11 +7,8 @@ class HomeController extends BaseController {
 
         $n = 10; // show limit
 
-        $userID = 1; //TODO: get ID from user logged
         // to make the where clause work
-        if ($userID == null) {
-            $userID = -1;
-        }
+        $userID = Auth::check() ? Auth::user()->id: -1;
 
         $newestSnippetTable = $this->getLastestSnippet($n, $userID);
         $topSnippetTable = $this->getMostLikedSnippet($n, $userID);

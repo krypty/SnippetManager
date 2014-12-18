@@ -190,12 +190,11 @@ class SnippetController extends BaseController {
     public function unlikeSnippet($id) {
         //TODO get user id and remove $id and user's id to Likes table
         echo "unliked snippet $id"; // TODO: remove me
-        
-        if(Auth::check())
-        {
+
+        if (Auth::check()) {
             $idUser = Auth::user()->id;
-            
-            $like = Likes::where("id_user","=",$idUser)->where("id_snippets","=",$id);
+
+            $like = Likes::where("id_user", "=", $idUser)->where("id_snippets", "=", $id);
             $like->delete();
         }
         return Redirect::to('viewsnippet/' . $id);
@@ -208,11 +207,8 @@ class SnippetController extends BaseController {
     public function listSnippetByLanguage() {
         $languages = parent::getListLangage();
 
-        $userID = 1; //TODO: get ID from user logged
         // to make the where clause work
-        if ($userID == null) {
-            $userID = -1;
-        }
+        $userID = Auth::check() ? Auth::user()->id : -1;
 
         $language_id = Input::get("id");
 

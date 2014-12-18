@@ -20,13 +20,10 @@ class BaseController extends Controller {
      */
     public static function getListLangage() {
         $allLanguages = Langage::all();
-
-        $userID = 1; //TODO: get ID from user logged
+ 
         // to make the where clause work
-        if ($userID == null) {
-            $userID = -1;
-        }
-
+        $userID = Auth::check() ? Auth::user()->id: -1;
+        
         $langagesData = array();
         foreach ($allLanguages as $langage) {
             $nb = Snippet::where('langage_id', '=', $langage->id)->where(function($query) use (&$userID) {

@@ -7,20 +7,18 @@ class SearchController extends BaseController {
 
         $query = Input::get("query");
 
-        $tabSnippets = Snippet::where("name","like","%".$query."%")->get();
-        
+        // to make the where clause work
+        $userID = Auth::check() ? Auth::user()->id : -1;
+
+        $snippets_id = Snippet::where("name", "like", "%$query%")->where(function($query) use (&$userID) {
+                    $query->where('public', '=', 1)->orWhere('auteur_id', '=', $userID);
+                })->lists('id');
+
         $searchResultSnippetData = array();
-        $i = 0;
-        
-        foreach ($tabSnippets as $snip) 
-        {
-             $searchResultSnippetData[$i] = array(
-                "id" => $snip->id,
-                $snip->name,
-                Langage::find($snip->langage_id)->name,
-                $snip->created_at
-             );
-            $i++;
+        $columnsNeeded = array("id", "title", "author", "updatedAt", "createdAt");
+        foreach ($snippets_id as $snippet_id) {
+            $snippetData = SnippetController::getInfoWithFilter($snippet_id, $columnsNeeded);
+            array_push($searchResultSnippetData, $snippetData);
         }
 
         $searchResultsSnippetsTable = array(
