@@ -101,6 +101,8 @@ class SnippetController extends BaseController {
         $snippet->save();
 
         $id = $snippet->id;
+        Session::flash('message', 'Le snippet a été ajouté avec succès !');
+        Session::flash('alert-class', 'alert-success');
         return Redirect::to('viewsnippet/' . $id);
     }
 
@@ -133,7 +135,7 @@ class SnippetController extends BaseController {
      */
     public function editSnippetPost() {
         $id = Input::get('snippet_id');
-        
+
         if (isset($id)) {
             $snippet = Snippet::find($id);
             $snippet->name = Input::get('inputTitle');
@@ -141,9 +143,12 @@ class SnippetController extends BaseController {
             $snippet->langage_id = Input::get('inputLanguage');
             $snippet->public = Input::get('inputPublic') == "yes" ? 1 : 0;
             $snippet->save();
+
+            Session::flash('message', 'Le snippet a été modifié avc succès !');
+            Session::flash('alert-class', 'alert-success');
             return Redirect::to("viewsnippet/$id");
         } else {
-            echo "Le snippet n'a pas été mis à jour";
+            echo "Erreur: Le snippet n'a pas été mis à jour";
         }
     }
 
@@ -164,6 +169,8 @@ class SnippetController extends BaseController {
             $likes->delete();
         }
 
+        Session::flash('message', 'Le snippet a été supprimé avec succès !');
+        Session::flash('alert-class', 'alert-success');
         return Redirect::to('/');
     }
 
@@ -184,19 +191,23 @@ class SnippetController extends BaseController {
                 $like->save();
             }
         }
+        $snippetTitle = Snippet::find($id)->name;
+        Session::flash('message', 'Vous aimez désormais le snippet <b>'.$snippetTitle.'</b> !');
+        Session::flash('alert-class', 'alert-success');
         return Redirect::to('viewsnippet/' . $id);
     }
 
     public function unlikeSnippet($id) {
-        //TODO get user id and remove $id and user's id to Likes table
-        echo "unliked snippet $id"; // TODO: remove me
-
         if (Auth::check()) {
             $idUser = Auth::user()->id;
 
             $like = Likes::where("id_user", "=", $idUser)->where("id_snippets", "=", $id);
             $like->delete();
         }
+        
+        $snippetTitle = Snippet::find($id)->name;
+        Session::flash('message', "Vous n'aimez plus le snippet <b>$snippetTitle</b>");
+        Session::flash('alert-class', 'alert-success');
         return Redirect::to('viewsnippet/' . $id);
     }
 
@@ -220,15 +231,15 @@ class SnippetController extends BaseController {
                     $query->where('public', '=', 1)->orWhere('auteur_id', '=', $userID);
                 })->lists('id');
 
-        $columnsNeeded = array("id", "title", "author", "updatedAt", "createdAt");
+        $columnsNeeded = array("id" => "id", "title" => "Nom", "author" => "Auteur", "updatedAt" => "Date de modification", "createdAt" => "Date de création");
         foreach ($snippets_id as $snippet_id) {
-            $snippetData = SnippetController::getInfoWithFilter($snippet_id, $columnsNeeded);
+            $snippetData = SnippetController::getInfoWithFilter($snippet_id, array_keys($columnsNeeded));
             array_push($snippetByLanguageData, $snippetData);
         }
 
         $searchResultsSnippetsTable = array(
             "tableTitle" => "",
-            "cols" => array("Nom", "Auteur", "Date de modification", "Date de création"),
+            "cols" => $columnsNeeded,
             "snippetsData" => $snippetByLanguageData
         );
 

@@ -13,40 +13,41 @@ class AuthentificationController extends BaseController {
             'password' => "pass",
             "languages" => $languages
         );
-        
+
         return View::make('login', $data);
     }
 
     function loginPost() {
-        
+
         $tab = Input::all();
-        
-        $user = User::where("pseudo","=",$tab["inputPseudo"])->get();
-       
-        
-        if(count($user)!=0)
-        {
-             $u = $user[0];
-            if(Hash::check($tab["inputPassword"], $u->password))
-            {
+
+        $user = User::where("pseudo", "=", $tab["inputPseudo"])->get();
+
+
+        if (count($user) != 0) {
+            $u = $user[0];
+            if (Hash::check($tab["inputPassword"], $u->password)) {
                 Auth::login(User::find($u->id));
             }
         }
-        
-        
-        if(Auth::check())
-        {
+
+
+        if (Auth::check()) {
+            Session::flash('message', 'Vous êtes désormais connecté !');
+            Session::flash('alert-class', 'alert-success');
             return Redirect::to('profile');
-        }
-        else
-        {
+        } else {
             //TODO: add withErrors + message flash
-            return Redirect::to('login');
+            Session::flash('message', 'Vous identifiants sont incorrects ! Essayer à nouveau');
+            Session::flash('alert-class', 'alert-danger');
+            return Redirect::to('login')->withInput();
         }
     }
-    
-    function logout(){
+
+    function logout() {
         Auth::logout();
+        Session::flash('message', 'Vous êtes désormais déconnecté !');
+        Session::flash('alert-class', 'alert-success');
         return Redirect::to('/');
     }
 
@@ -75,7 +76,7 @@ class AuthentificationController extends BaseController {
     ///
     public function createAccountShow() {
         $languages = parent::getListLangage();
-        
+
         $data = array(
             "languages" => $languages
         );
@@ -84,37 +85,34 @@ class AuthentificationController extends BaseController {
     }
 
     public function createAccountPost() {
-       
+
         $tab = Input::all();
-        
-        
-        if($tab["inputPassword"] != $tab["inputPasswordConfirm"])
-        {
-            //TODO Password Différent
-            return Redirect::to('createaccount');
+
+
+        if ($tab["inputPassword"] != $tab["inputPasswordConfirm"]) {
+            Session::flash('message', 'Veuillez saisir des mots de passes identiques');
+            Session::flash('alert-class', 'alert-danger');
+            return Redirect::to('createaccount')->withInput();
         }
-       
-        
-        $t = User::where("pseudo","=",$tab["inputPseudo"])->get();
-        $t2 = User::where("email","=",$tab["inputEmail"])->get();
-        if(count($t)==0&&count($t2)==0)
-        {
+
+
+        $t = User::where("pseudo", "=", $tab["inputPseudo"])->get();
+        $t2 = User::where("email", "=", $tab["inputEmail"])->get();
+        if (count($t) == 0 && count($t2) == 0) {
             $user = new User();
             $user->pseudo = $tab["inputPseudo"];
             $user->email = $tab["inputEmail"];
             $user->password = Hash::make($tab["inputPassword"]);
             $user->save();
-            
+
             Auth::login($user);
-            
+
             return Redirect::to('/');
+        } else {
+            Session::flash('message', 'Ce pseudo ou adresse mail existe déjà');
+            Session::flash('alert-class', 'alert-danger');
+            return Redirect::to('createaccount')->withInput();
         }
-        else
-        {
-            //TODO User deja existant
-            return Redirect::to('createaccount');
-        }
-        
     }
 
 }

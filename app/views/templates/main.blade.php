@@ -31,6 +31,11 @@
 
             <div class="col-md-10">
                 <div class="col-md-12" id="content">
+                    
+                    @if(Session::has('message'))
+                        <p id="flash-message-main" class="alert {{Session::get('alert-class', 'alert-info')}}">{{ Session::get('message') }}</p>
+                    @endif
+                    
                     @yield('content')
                 </div>
             </div>

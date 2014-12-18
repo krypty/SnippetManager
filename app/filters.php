@@ -36,6 +36,8 @@ Route::filter('auth', function() {
         if (Request::ajax()) {
             return Response::make('Unauthorized', 401);
         } else {
+            Session::flash('message', 'Vous devez être connecté pour effectuer cette action !');
+            Session::flash('alert-class', 'alert-danger');
             return Redirect::guest('login');
         }
     }
@@ -85,7 +87,7 @@ Route::filter('author', function($route) {
 
     $snippet = Snippet::find($id);
 
-    $userID = Auth::check() ? Auth::user()->id: -1;
+    $userID = Auth::check() ? Auth::user()->id : -1;
 
     if (!isset($snippet) || $snippet->auteur_id != $userID) {
         $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
@@ -104,7 +106,7 @@ Route::filter('public', function($route) {
 
     $snippet = Snippet::find($id);
 
-    $userID = Auth::check() ? Auth::user()->id: -1;
+    $userID = Auth::check() ? Auth::user()->id : -1;
 
     if (!isset($snippet) || ($snippet->public != 1 && $snippet->auteur_id != $userID)) {
         $errorMessage = "Vous n'êtes pas autorisé à effectuer cette action";
