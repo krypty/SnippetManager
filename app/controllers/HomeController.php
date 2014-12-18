@@ -25,7 +25,7 @@ class HomeController extends BaseController {
     private function getLastestSnippet($n, $userID) {
         $newestSnippetData = array();
 
-        $snippets_id = Snippet::where('public', '=', 1)->orWhere('auteur_id', '=', $userID)->orderBy('created_at', 'desc')->lists('id');
+        $snippets_id = Snippet::where('public', '=', 1)->orWhere('auteur_id', '=', $userID)->orderBy('created_at', 'desc')->limit($n)->lists('id');
 
         $columnsNeeded = array("id", "title", "author", "language", "createdAt");
         foreach ($snippets_id as $snippet_id) {
