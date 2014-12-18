@@ -99,7 +99,9 @@ class AuthentificationController extends BaseController {
             $user->password = Hash::make($tab["inputPassword"]);
             $user->save();
             
-            return Redirect::to('login');
+            Auth::login($user);
+            
+            return Redirect::to('/');
         }
         else
         {
