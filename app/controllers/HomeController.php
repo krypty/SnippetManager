@@ -25,7 +25,7 @@ class HomeController extends BaseController {
     private function getLastestSnippet($n, $userID) {
         $newestSnippetData = array();
 
-        $snippets_id = Snippet::where('public', '=', 1)->orWhere('auteur_id', '=', $userID)->orderBy('created_at', 'desc')->limit($n)->lists('id');
+        $snippets_id = Snippet::where('public', '=', 1)->orderBy('created_at', 'desc')->limit($n)->lists('id');
 
         $columnsNeeded = array("id", "title", "author", "language", "createdAt");
         foreach ($snippets_id as $snippet_id) {
@@ -34,7 +34,7 @@ class HomeController extends BaseController {
         }
 
         $newestSnippetTable = array(
-            "tableTitle" => "Derniers snippets ajoutés",
+            "tableTitle" => "Derniers snippets publics ajoutés",
             "cols" => array("Nom", "Auteur", "Langage", "Date d'ajout"),
             "snippetsData" => $newestSnippetData
         );
@@ -54,7 +54,7 @@ class HomeController extends BaseController {
         }
 
         $topSnippetTable = array(
-            "tableTitle" => "Top des snippets ajoutés",
+            "tableTitle" => "Top des snippets publics",
             "cols" => array("Nombre de likes", "Nom", "Langage", "Auteur", "Date de modification"),
             "snippetsData" => $topSnippetData
         );
