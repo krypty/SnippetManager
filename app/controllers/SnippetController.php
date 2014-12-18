@@ -195,7 +195,7 @@ class SnippetController extends BaseController {
         {
             $idUser = Auth::user()->id;
             
-            $like = Likes::where("id_user","=",$idUser,"and","id_snipets","=",$id);
+            $like = Likes::where("id_user","=",$idUser)->where("id_snippets","=",$id);
             $like->delete();
         }
         return Redirect::to('viewsnippet/' . $id);
