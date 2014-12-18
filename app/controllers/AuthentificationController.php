@@ -22,12 +22,17 @@ class AuthentificationController extends BaseController {
         $tab = Input::all();
         
         $user = User::where("pseudo","=",$tab["inputPseudo"])->get();
-        $u = $user[0];
+       
         
-        if(Hash::check($tab["inputPassword"], $u->password))
+        if(count($user)!=0)
         {
-            Auth::login(User::find($u->id));
+             $u = $user[0];
+            if(Hash::check($tab["inputPassword"], $u->password))
+            {
+                Auth::login(User::find($u->id));
+            }
         }
+        
         
         if(Auth::check())
         {
@@ -35,7 +40,7 @@ class AuthentificationController extends BaseController {
         }
         else
         {
-            return Redirect::to('login');
+            return Redirect::to('/');
         }
     }
     
