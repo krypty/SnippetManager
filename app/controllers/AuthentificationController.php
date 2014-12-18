@@ -40,7 +40,8 @@ class AuthentificationController extends BaseController {
         }
         else
         {
-            return Redirect::to('/');
+            //TODO: add withErrors + message flash
+            return Redirect::to('login');
         }
     }
     
