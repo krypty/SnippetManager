@@ -32,7 +32,7 @@
     <div class="col-md-10">
         <div class="checkbox">
             <?php $isPublic = isset($snippetData) && $snippetData['public'] == 1 ?>
-            {{Form::checkbox("inputPublic", "", $isPublic)}}
+            {{Form::checkbox("inputPublic", "yes", $isPublic)}}
         </div>
     </div>
 </div>

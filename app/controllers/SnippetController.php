@@ -133,13 +133,13 @@ class SnippetController extends BaseController {
      */
     public function editSnippetPost() {
         $id = Input::get('snippet_id');
-
+        
         if (isset($id)) {
             $snippet = Snippet::find($id);
             $snippet->name = Input::get('inputTitle');
             $snippet->code = Input::get('snippetContent');
             $snippet->langage_id = Input::get('inputLanguage');
-            $snippet->public = Input::get('inputPublic') == "" ? 0 : 1;
+            $snippet->public = Input::get('inputPublic') == "yes" ? 1 : 0;
             $snippet->save();
             return Redirect::to("viewsnippet/$id");
         } else {

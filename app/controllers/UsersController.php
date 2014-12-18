@@ -14,7 +14,7 @@ class UsersController extends BaseController {
         $snippetsId = Snippet::where('auteur_id', "=", $userID)->lists('id');
 
         $mySnippetData = array();
-        $columnsNeeded = array("id" => "id", "title" => "Nom", "language" => "Langage", "updatedAt" => "Date de modification", "createdAt" => "Date de création");
+        $columnsNeeded = array("id" => "id", "title" => "Nom", "language" => "Langage", "visibility" => "Visibilité", "updatedAt" => "Date de modification", "createdAt" => "Date de création");
         foreach ($snippetsId as $snippetId) {
             $snippetData = SnippetController::getInfoWithFilter($snippetId, array_keys($columnsNeeded));
             array_push($mySnippetData, $snippetData);
