@@ -190,6 +190,15 @@ class SnippetController extends BaseController {
     public function unlikeSnippet($id) {
         //TODO get user id and remove $id and user's id to Likes table
         echo "unliked snippet $id"; // TODO: remove me
+        
+        if(Auth::check())
+        {
+            $idUser = Auth::user()->id;
+            
+            $like = Likes::where("id_user","=",$idUser,"and","id_snipets","=",$id);
+            $like->delete();
+        }
+        return Redirect::to('viewsnippet/' . $id);
     }
 
     ///
