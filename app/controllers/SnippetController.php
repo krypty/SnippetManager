@@ -37,7 +37,7 @@ class SnippetController extends BaseController {
     public static function getInfoWithFilter($id, $cols) {
         $snippetInfo = SnippetController::getInfo($id);
 
-        foreach ($snippetInfo as $key => $value) {
+        foreach (array_keys($snippetInfo) as $key) {
             if (!in_array($key, $cols)) {
                 unset($snippetInfo[$key]);
             }

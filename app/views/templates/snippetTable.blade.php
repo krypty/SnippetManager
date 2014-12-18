@@ -4,7 +4,9 @@
         <thead>
             <tr>
                 @foreach ($cols as $col)
-                <th>{{$col}}</th>
+                @if ($col != "id")
+                    <th>{{$col}}</th>
+                @endif
                 @endforeach
                 </tr>
         </thead>
@@ -12,10 +14,13 @@
             @foreach ($snippetsData as $snippetData)
             <tr>
                 
-                 @foreach($snippetData as $key => $value)
-                    @if($key == "title")
+                 @foreach(array_keys($cols) as $col)
+                    <?php $value = $snippetData[$col]; ?>
+                    @if($col == "title")
                        <td><a href="{{URL::action('SnippetController@ViewSnippetShow', $snippetData['id'])}}">{{$value}}</a></td>
-                    @elseif($key == "id")
+                    @elseif($col == "id")
+                    @elseif(is_numeric($value))
+                        <td class="text-right">{{$value}}</td>
                     @else
                        <td>{{$value}}</td>
                     @endif

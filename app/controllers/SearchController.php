@@ -15,15 +15,15 @@ class SearchController extends BaseController {
                 })->lists('id');
 
         $searchResultSnippetData = array();
-        $columnsNeeded = array("id", "title", "author", "updatedAt", "createdAt");
+        $columnsNeeded = array("id" => "id", "title" => "Nom", "language" => "Langage", "author" => "Auteur", "updatedAt" => "Date de modification");
         foreach ($snippets_id as $snippet_id) {
-            $snippetData = SnippetController::getInfoWithFilter($snippet_id, $columnsNeeded);
+            $snippetData = SnippetController::getInfoWithFilter($snippet_id, array_keys($columnsNeeded));
             array_push($searchResultSnippetData, $snippetData);
         }
 
         $searchResultsSnippetsTable = array(
             "tableTitle" => "",
-            "cols" => array("Nom", "Langage", "Date de modification"),
+            "cols" => $columnsNeeded,
             "snippetsData" => $searchResultSnippetData
         );
 

@@ -10,19 +10,19 @@ class UsersController extends BaseController {
     public function showMySnippets() {
         $languages = parent::getListLangage();
 
-        $userID = Auth::user()->id; 
-        $snippetsId = DB::table("snippets")->where('auteur_id', "=", $userID)->lists('id');
+        $userID = Auth::user()->id;
+        $snippetsId = Snippet::where('auteur_id', "=", $userID)->lists('id');
 
         $mySnippetData = array();
-        $columnsNeeded = array("id", "title", "language", "updatedAt", "createdAt");
+        $columnsNeeded = array("id" => "id", "title" => "Nom", "language" => "Langage", "updatedAt" => "Date de modification", "createdAt" => "Date de création");
         foreach ($snippetsId as $snippetId) {
-            $snippetData = SnippetController::getInfoWithFilter($snippetId, $columnsNeeded);
+            $snippetData = SnippetController::getInfoWithFilter($snippetId, array_keys($columnsNeeded));
             array_push($mySnippetData, $snippetData);
         }
 
         $mySnippetsTable = array(
             "tableTitle" => "",
-            "cols" => array("Nom", "Langage", "Date de modification", "Date de création"),
+            "cols" => $columnsNeeded,
             "snippetsData" => $mySnippetData
         );
 
@@ -37,19 +37,19 @@ class UsersController extends BaseController {
     public function showLikedSnippets() {
         $languages = parent::getListLangage();
 
-        $userID = Auth::user()->id; 
-        $snippetsId = DB::table("likes")->where('id_user', "=", $userID)->lists('id_snippets');
+        $userID = Auth::user()->id;
+        $snippetsId = Likes::where('id_user', "=", $userID)->lists('id_snippets');
 
         $mySnippetData = array();
-        $columnsNeeded = array("id", "title", "language", "author", "updatedAt");
+        $columnsNeeded = array("id" => "id", "title" => "Nom", "language" => "Langage", "author" => "Auteur", "updatedAt" => "Date de modification");
         foreach ($snippetsId as $snippetId) {
-            $snippetData = SnippetController::getInfoWithFilter($snippetId, $columnsNeeded);
+            $snippetData = SnippetController::getInfoWithFilter($snippetId, array_keys($columnsNeeded));
             array_push($mySnippetData, $snippetData);
         }
 
         $likedSnippetsTable = array(
             "tableTitle" => "",
-            "cols" => array("Nom", "Langage", "Auteur", "Date de modification"),
+            "cols" => $columnsNeeded,
             "snippetsData" => $mySnippetData
         );
 
