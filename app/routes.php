@@ -23,25 +23,24 @@ Route::get("snippetsbylanguage", "SnippetController@listSnippetByLanguage");
 
 
 /// AUTHENTIFICATION
-Route::get("login", 'AuthentificationController@loginShow');
-Route::post("login", 'AuthentificationController@loginPost');
+Route::get("login", array("uses" => "AuthentificationController@loginShow", "before" => "guest"));
+Route::post("login", array("uses" => "AuthentificationController@loginPost", "before" => "guest"));
 
 
-Route::get("passwordlost", "AuthentificationController@passwordLostShow");
-Route::post("passwordlost", "AuthentificationController@passwordLostPost");
+Route::get("passwordlost", array("uses" => "AuthentificationController@passwordLostShow", "before" => "guest"));
+Route::post("passwordlost", array("uses" => "AuthentificationController@passwordLostPost", "before" => "guest"));
 
 
-Route::get("createaccount", "AuthentificationController@createAccountShow");
-Route::post("createaccount", "AuthentificationController@createAccountPost");
+Route::get("createaccount", array("uses" => "AuthentificationController@createAccountShow", "before" => "guest"));
+Route::post("createaccount", array("uses" => "AuthentificationController@createAccountPost", "before" => "guest"));
 
 Route::get("logout", "AuthentificationController@logout");
 
 
 /// USER
-//Route::controller("users", "UsersController");
-Route::get("profile", "ProfileController@show");
-Route::get("mysnippets", "UsersController@showMySnippets");
-Route::get("likedsnippets", "UsersController@showLikedSnippets");
+Route::get("profile", array("uses" => "ProfileController@show", "before" => "auth"));
+Route::get("mysnippets", array("uses" => "UsersController@showMySnippets", "before" => "auth"));
+Route::get("likedsnippets", array("uses" => "UsersController@showLikedSnippets", "before" => "auth"));
 
 // SEARCH
 Route::get("search", "SearchController@showResults");
