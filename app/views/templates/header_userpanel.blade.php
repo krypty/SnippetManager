@@ -1,5 +1,5 @@
 <div id="header-userpanel">
-    <h4>Bienvenue {{"Pseudo"//Auth::user()->pseudo}} !</h4>
+    <h4>Bienvenue {{Auth::user()->pseudo}} !</h4>
     <ul>
         <li>{{HTML::link("addsnippet", "Ajouter un snippet")}}</li>
         <li>{{HTML::link("profile", "Mon profil")}}</li>
