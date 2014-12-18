@@ -7,8 +7,8 @@ Route::get('/', 'HomeController@showWelcome');
 /// SNIPPET
 Route::get('viewsnippet/{id}', array("uses" => "SnippetController@ViewSnippetShow", "before" => "public"))->where(array('id' => '[0-9]+'));
 
-Route::get('addsnippet', "SnippetController@addSnippetShow");
-Route::post('addsnippet', "SnippetController@addSnippetPost");
+Route::get('addsnippet', array("uses" => "SnippetController@addSnippetShow", "before" => "auth"));
+Route::post('addsnippet', array("uses" => "SnippetController@addSnippetPost", "before" => "auth"));
 
 Route::get('editsnippet/{id}', array("uses" => "SnippetController@editSnippetShow", "before" => "author"))->where(array('id' => '[0-9]+'));
 Route::post('editsnippet', "SnippetController@editSnippetPost");
