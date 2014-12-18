@@ -252,7 +252,7 @@ class SnippetController extends BaseController {
      * @return true si l'user a déjà like le snippet, sinon false
      */
     public static function isSnippetLikedByUser($user_id, $snippet_id) {
-        $tab = Likes::where("id_snippets", "=", $snippet_id, "and", "id_user", "=", $user_id)->get();
+        $tab = Likes::where("id_snippets", "=", $snippet_id)->where("id_user", "=", $user_id)->get();
         return count($tab) > 0;
     }
 
