@@ -27,10 +27,6 @@ Route::get("login", array("uses" => "AuthentificationController@loginShow", "bef
 Route::post("login", array("uses" => "AuthentificationController@loginPost", "before" => "guest"));
 
 
-Route::get("passwordlost", array("uses" => "AuthentificationController@passwordLostShow", "before" => "guest"));
-Route::post("passwordlost", array("uses" => "AuthentificationController@passwordLostPost", "before" => "guest"));
-
-
 Route::get("createaccount", array("uses" => "AuthentificationController@createAccountShow", "before" => "guest"));
 Route::post("createaccount", array("uses" => "AuthentificationController@createAccountPost", "before" => "guest"));
 
@@ -51,6 +47,28 @@ App::missing(function() {
     return Response::view("errors.404", array(), 404);
 });
 
+
+/// PASSWORD RESET
+Route::get('password/reset', array(
+    'uses' => 'PasswordController@remind',
+    'as' => 'password.remind'
+));
+
+Route::post('password/reset', array(
+    'uses' => 'PasswordController@request',
+    'as' => 'password.request'
+));
+
+
+Route::get('password/reset/{token}', array(
+    'uses' => 'PasswordController@reset',
+    'as' => 'password.reset'
+));
+
+Route::post('password/reset/{token}', array(
+    'uses' => 'PasswordController@update',
+    'as' => 'password.update'
+));
 
 // DEBUG
 // affiche les requêtes générées

@@ -51,26 +51,6 @@ class AuthentificationController extends BaseController {
     }
 
     ///
-    /// Password lost
-    ///
-
-    public function passwordLostShow() {
-        $languages = parent::getListLangage();
-
-        $data = array(
-            "languages" => $languages
-        );
-
-        return View::make('password_lost', $data);
-    }
-
-    public function passwordLostPost() {
-        //TODO: get user input and send mail to user
-        echo "password lost post<br/>";
-        print_r(Input::all());
-    }
-
-    ///
     /// Create account
     ///
     public function createAccountShow() {
@@ -84,10 +64,7 @@ class AuthentificationController extends BaseController {
     }
 
     public function createAccountPost() {
-
         $tab = Input::all();
-
-        print_r($tab);
 
         // validation
         $rules = array(

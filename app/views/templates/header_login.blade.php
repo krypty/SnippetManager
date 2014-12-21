@@ -30,7 +30,7 @@
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         {{HTML::link("createaccount", "S'inscrire")}}
-        {{HTML::link("passwordlost", "Mot de passe oublié")}}
+        {{HTML::link("password/reset", "Mot de passe oublié")}}
     </div>
 </div>
 {{Form::close()}}
