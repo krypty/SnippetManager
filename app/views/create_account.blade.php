@@ -7,6 +7,18 @@ Création de compte
 @section('content')
 <h2>Nouveau compte</h2>
 
+@if ( $errors->count() > 0 )
+<div class="alert alert-danger">
+    <strong>Les erreurs suivantes ont eu lieu:</strong>
+
+    <ul>
+        @foreach( $errors->all() as $message )
+        <li>{{ $message }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 {{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'AuthentificationController@createAccountPost'))}}
 <div class="form-group">
     {{Form::label("inputPseudo", "Pseudo", array("class" => "col-md-2 control-label"))}}

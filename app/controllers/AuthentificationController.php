@@ -37,7 +37,6 @@ class AuthentificationController extends BaseController {
             Session::flash('alert-class', 'alert-success');
             return Redirect::to('profile');
         } else {
-            //TODO: add withErrors + message flash
             Session::flash('message', 'Vous identifiants sont incorrects ! Essayer à nouveau');
             Session::flash('alert-class', 'alert-danger');
             return Redirect::to('login')->withInput();
@@ -88,17 +87,27 @@ class AuthentificationController extends BaseController {
 
         $tab = Input::all();
 
+        print_r($tab);
 
-        if ($tab["inputPassword"] != $tab["inputPasswordConfirm"]) {
-            Session::flash('message', 'Veuillez saisir des mots de passes identiques');
-            Session::flash('alert-class', 'alert-danger');
-            return Redirect::to('createaccount')->withInput();
-        }
+        // validation
+        $rules = array(
+            'email' => 'Required|Between:3,64|Email|Unique:users',
+            'pseudo' => 'Required|Min:3|Max:20|AlphaNum|Unique:users',
+            'password' => 'Required|AlphaNum|Between:4,32|Confirmed',
+            'password_confirmation' => 'Required|AlphaNum|Between:4,32',
+        );
 
+        $inputToValidate = array(
+            "email" => Input::get("inputEmail"),
+            "pseudo" => Input::get("inputPseudo"),
+            "password" => Input::get("inputPassword"),
+            "password_confirmation" => Input::get("inputPasswordConfirm"),
+        );
+        $validator = Validator::make($inputToValidate, $rules);
 
-        $t = User::where("pseudo", "=", $tab["inputPseudo"])->get();
-        $t2 = User::where("email", "=", $tab["inputEmail"])->get();
-        if (count($t) == 0 && count($t2) == 0) {
+        if ($validator->fails()) {
+            return Redirect::to("createaccount")->withErrors($validator)->withInput();
+        } else {
             $user = new User();
             $user->pseudo = $tab["inputPseudo"];
             $user->email = $tab["inputEmail"];
@@ -108,10 +117,6 @@ class AuthentificationController extends BaseController {
             Auth::login($user);
 
             return Redirect::to('/');
-        } else {
-            Session::flash('message', 'Ce pseudo ou adresse mail existe déjà');
-            Session::flash('alert-class', 'alert-danger');
-            return Redirect::to('createaccount')->withInput();
         }
     }
 

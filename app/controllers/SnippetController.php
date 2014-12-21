@@ -80,22 +80,38 @@ class SnippetController extends BaseController {
         $data = array(
             "languages" => $languages,
             "title" => "Ajouter un snippet",
-            "languagesSelect" => $languagesSelect
+            "languagesSelect" => $languagesSelect,
         );
         return View::make('add_edit_snippet', $data);
     }
 
     public function addSnippetPost() {
-        $tab = Input::all();
-        $snippet = new Snippet();
-        $snippet->name = $tab["inputTitle"];
-        $snippet->langage_id = $tab["inputLanguage"];
-        if (isset($tab["inputPublic"]))
-            $snippet->public = 1;
-        else
-            $snippet->public = 0;
+        // validation
+        $rules = array(
+            'name' => 'required',
+            'code' => 'required',
+        );
+        $inputToValidate = array(
+            "name" => Input::get("inputTitle"),
+            "code" => Input::get("snippetContent")
+        );
+        $validator = Validator::make($inputToValidate, $rules);
 
-        $snippet->code = $tab["snippetContent"];
+        if ($validator->fails()) {
+            return Redirect::to("addsnippet")->withErrors($validator)->withInput();
+        }
+
+        // persistance
+        $snippet = new Snippet();
+        $snippet->name = Input::get("inputTitle");
+        $snippet->langage_id = Input::get("inputLanguage");
+        if (Input::has("inputPublic")) {
+            $snippet->public = 1;
+        } else {
+            $snippet->public = 0;
+        }
+
+        $snippet->code = Input::get("snippetContent");
         $snippet->auteur_id = Auth::user()->id;
 
         $snippet->save();
@@ -136,6 +152,21 @@ class SnippetController extends BaseController {
     public function editSnippetPost() {
         $id = Input::get('snippet_id');
 
+        // validation
+        $rules = array(
+            'name' => 'required',
+            'code' => 'required',
+        );
+        $inputToValidate = array(
+            "name" => Input::get("inputTitle"),
+            "code" => Input::get("snippetContent")
+        );
+        $validator = Validator::make($inputToValidate, $rules);
+
+        if ($validator->fails()) {
+            return Redirect::to("editsnippet/$id")->withErrors($validator)->withInput();
+        }
+
         if (isset($id)) {
             $snippet = Snippet::find($id);
             $snippet->name = Input::get('inputTitle');
@@ -144,7 +175,7 @@ class SnippetController extends BaseController {
             $snippet->public = Input::get('inputPublic') == "yes" ? 1 : 0;
             $snippet->save();
 
-            Session::flash('message', 'Le snippet a été modifié avc succès !');
+            Session::flash('message', 'Le snippet a été modifié avec succès !');
             Session::flash('alert-class', 'alert-success');
             return Redirect::to("viewsnippet/$id");
         } else {
@@ -192,7 +223,7 @@ class SnippetController extends BaseController {
             }
         }
         $snippetTitle = Snippet::find($id)->name;
-        Session::flash('message', 'Vous aimez désormais le snippet <b>'.$snippetTitle.'</b> !');
+        Session::flash('message', 'Vous aimez désormais le snippet <b>' . $snippetTitle . '</b> !');
         Session::flash('alert-class', 'alert-success');
         return Redirect::to('viewsnippet/' . $id);
     }
@@ -204,7 +235,7 @@ class SnippetController extends BaseController {
             $like = Likes::where("id_user", "=", $idUser)->where("id_snippets", "=", $id);
             $like->delete();
         }
-        
+
         $snippetTitle = Snippet::find($id)->name;
         Session::flash('message', "Vous n'aimez plus le snippet <b>$snippetTitle</b>");
         Session::flash('alert-class', 'alert-success');
