@@ -33,15 +33,15 @@ class User extends Eloquent implements Illuminate\Auth\UserInterface, Illuminate
     }
 
     public function getRememberToken() {
-        
+        return $this->remember_token;
     }
 
     public function getRememberTokenName() {
-        
+        return "remember_token";
     }
 
     public function setRememberToken($value) {
-        
+         $this->remember_token = $value;
     }
 
     public function getReminderEmail() {
