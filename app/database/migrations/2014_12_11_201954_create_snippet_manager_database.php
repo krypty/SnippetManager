@@ -65,7 +65,6 @@ class CreateSnippetManagerDatabase {
             $table->string('email', 255)->unique();
             $table->string('pseudo', 255)->unique();
             $table->string('password', 255);
-			$table->string('remember_token', 255);
         });
     }
 

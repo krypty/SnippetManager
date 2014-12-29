@@ -28,7 +28,7 @@ class AuthentificationController extends BaseController {
             $u = $user[0];
             if(Hash::check($tab["inputPassword"], $u->password))
             {
-                if($tab["cbxRemember"]==1)
+                if(isset($tab["cbxRemember"]) && $tab["cbxRemember"]==1)
                 {
                     Auth::login(User::find($u->id),true);
                 }
