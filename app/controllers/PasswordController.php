@@ -17,7 +17,9 @@ class PasswordController extends BaseController {
             'email' => Input::get('email'),
             'password' => Input::get('password')
         );
-        $responce = Password::remind($credentials);
+        $responce = Password::remind($credentials, function($message) {
+                    $message->subject("[SnippetManager] Reset de votre mot de passe");
+                });
 
         switch ($responce) {
             case Password::REMINDER_SENT: {
