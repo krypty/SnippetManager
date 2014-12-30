@@ -18,7 +18,7 @@
     <div class="col-md-offset-2 col-md-10">
         <div class="col-md-6 col-xs-6 text-left">
             <div class="checkbox">
-                {{Form::checkbox('cbxRemember', 1, null, array('id' => 'cbxRemember'))}} {{Form::label('cbxRemember', 'Se souvenir de moi', array('for' => 'cbxRemember'))}}
+                {{Form::checkbox('cbxRemember', 1, null, array('id' => 'cbxRememberHeader'))}} {{Form::label('cbxRememberHeader', 'Se souvenir de moi', array('for' => 'cbxRemember'))}}
             </div>
         </div>
         <div class="col-md-6 col-xs-6 text-right">
