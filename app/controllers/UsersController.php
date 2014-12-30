@@ -60,7 +60,7 @@ class UsersController extends BaseController {
 
         return View::make('liked_snippets', $data);
     }
-
-}
+    
+    }
 
 ?>

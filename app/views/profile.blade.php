@@ -7,36 +7,52 @@ Votre profil
 @section('content')
 <h2>Profil de {{$profile["pseudo"] or '???'}}</h2>
 
-<form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label for="inputEmail" class="col-md-2 control-label">Adresse mail</label>
-        <div class="col-md-10">
-            <input type="email" class="form-control" id="inputEmail" readonly="readonly" value="{{$profile['mail'] or 'mail not found !'}}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputOldPassword" class="col-md-2 control-label">Ancien mot de passe</label>
-        <div class="col-md-10">
-            <input type="password" class="form-control" id="inputOldPassword">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputNewPassword" class="col-md-2 control-label">Nouveau mot de passe</label>
-        <div class="col-md-10">
-            <input type="password" class="form-control" id="inputNewPassword">
-        </div>
-    </div> 
-    <div class="form-group">
-        <label for="inputNewPasswordConfirm" class="col-md-2 control-label">Nouveau mot de passe (confirmation)</label>
-        <div class="col-md-10">
-            <input type="password" class="form-control" id="inputNewPasswordConfirm">
-        </div>
-    </div> 
+@if ( $errors->count() > 0 )
+<div class="alert alert-danger">
+    <strong>Les erreurs suivantes ont eu lieu:</strong>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-smd-10">
-            <button type="submit" class="btn btn-success">Modifier profil</button>
-        </div>
+    <ul>
+        @foreach( $errors->all() as $message )
+        <li>{{ $message }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+{{Form::open(array('class' => 'form-horizontal', 'role' => 'form', 'action' => 'ProfileController@edit'))}}
+<div class="form-group">
+    {{Form::label("inputEmail", "Adresse mail", array("class" => "col-md-2 control-label"))}}
+    <div class="col-md-10">
+        {{Form::text("inputEmail", $profile['mail'], array("class" => "form-control", "readonly" => "readonly" ))}}
     </div>
-</form>
+</div>
+
+<div class="form-group">
+    {{Form::label("inputOldPassword", "Ancien mot de passe", array("class" => "col-md-2 control-label"))}}
+    <div class="col-md-10">
+        {{Form::password("inputOldPassword", array("class" => "form-control", "required" => "required"))}}
+    </div>
+</div>
+
+<div class="form-group">
+    {{Form::label("inputNewPassword", "Nouveau mot de passe", array("class" => "col-md-2 control-label"))}}
+    <div class="col-md-10">
+        {{Form::password("inputNewPassword", array("class" => "form-control", "required" => "required"))}}
+    </div>
+</div>
+
+
+<div class="form-group">
+    {{Form::label("inputNewPasswordConfirm", "Nouveau mot de passe (confirmation)", array("class" => "col-md-2 control-label"))}}
+    <div class="col-md-10">
+        {{Form::password("inputNewPasswordConfirm", array("class" => "form-control", "required" => "required"))}}
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-smd-10">
+        {{Form::submit("Modifier le profil", array("class" => "btn btn-success"))}}
+    </div>
+</div>
+{{Form::close()}}
 @stop

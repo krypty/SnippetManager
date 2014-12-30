@@ -35,6 +35,7 @@ Route::get("logout", "AuthentificationController@logout");
 
 /// USER
 Route::get("profile", array("uses" => "ProfileController@show", "before" => "auth"));
+Route::post("profile", array("uses" => "ProfileController@edit", "before" => "auth"));
 Route::get("mysnippets", array("uses" => "UsersController@showMySnippets", "before" => "auth"));
 Route::get("likedsnippets", array("uses" => "UsersController@showLikedSnippets", "before" => "auth"));
 
@@ -49,26 +50,10 @@ App::missing(function() {
 
 
 /// PASSWORD RESET
-Route::get('password/reset', array(
-    'uses' => 'PasswordController@remind',
-    'as' => 'password.remind'
-));
-
-Route::post('password/reset', array(
-    'uses' => 'PasswordController@request',
-    'as' => 'password.request'
-));
-
-
-Route::get('password/reset/{token}', array(
-    'uses' => 'PasswordController@reset',
-    'as' => 'password.reset'
-));
-
-Route::post('password/reset/{token}', array(
-    'uses' => 'PasswordController@update',
-    'as' => 'password.update'
-));
+Route::get('password/reset', array('uses' => 'PasswordController@remind', 'as' => 'password.remind', "before" => "guest"));
+Route::post('password/reset', array('uses' => 'PasswordController@request', 'as' => 'password.request', "before" => "guest"));
+Route::get('password/reset/{token}', array('uses' => 'PasswordController@reset', 'as' => 'password.reset', "before" => "guest"));
+Route::post('password/reset/{token}', array('uses' => 'PasswordController@update', 'as' => 'password.update', "before" => "guest"));
 
 // DEBUG
 // affiche les requêtes générées
