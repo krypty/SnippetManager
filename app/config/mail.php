@@ -47,7 +47,7 @@ return array(
       | used globally for all e-mails that are sent by your application.
       |
      */
-    'from' => array('address' => 'gmarigliano93@gmail.com', 'name' => "Snippets Manager"),
+    'from' => array('address' => 'snippetmanagerhearc@gmail.com', 'name' => "Snippets Manager"),
     /*
       |--------------------------------------------------------------------------
       | E-Mail Encryption Protocol
@@ -69,7 +69,7 @@ return array(
       | connection. You may also set the "password" value below this one.
       |
      */
-    'username' => 'TOTO_MAIL',
+    'username' => 'snippetmanagerhearc@gmail.com',
     /*
       |--------------------------------------------------------------------------
       | SMTP Server Password
@@ -82,7 +82,7 @@ return array(
      */
 
     // we all agree that's not a good idea ! TODO: get password from a file or database
-    'password' => "TOTO_MOT_DE_PASSE",
+    'password' => "snippet123",
     /*
       |--------------------------------------------------------------------------
       | Sendmail System Path
